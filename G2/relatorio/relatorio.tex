@@ -60,13 +60,11 @@ contents={%
 }
 
 % ================== MACROS DO TEXTO ==================
-% [REORGANIZAÇÃO] Estas três definições estavam no meio do texto (fim da Introdução); vieram para o preâmbulo sem alteração.
 \providecommand{\conf}[1]{\textcolor{red}{[#1]}}
 \providecommand{\uScm}{\ensuremath{\mu}S/cm}
 \providecommand{\ajustatabela}[1]{\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{#1}}
 
 % ================== NÍVEIS DE SEÇÃO ==================
-% [REORGANIZAÇÃO] Com a divisão em três etapas, parte das seções desceu um nível (ex.: 2.8.2.1).
 % O 4º nível (\paragraph) fica numerado, entra no sumário e tem título em linha própria.
 \setcounter{secnumdepth}{4}
 \setcounter{tocdepth}{4}
@@ -100,7 +98,7 @@ Rafael Dias Franco de Godoy\\
 \vspace{0.3cm}
 
 \begin{tabular}{@{}l@{\hspace{1em}}c@{\hspace{0.5em}}l@{}}
-\textbf{EXPERIMENTO C} & \textbf{-} & \textbf{EXPERIMENTO DE DISPERSÃO CONDUTIVÍMETROS} \\
+\textbf{EXPERIMENTO C} & \textbf{-} & \textbf{DISPERSÃO DE SAL EM CANAL COM CONDUTIVÍMETROS DE BAIXO CUSTO} \\
 \end{tabular}
 
 \vfill
@@ -126,7 +124,7 @@ MONITORAMENTO AMBIENTAL COM SENSORES E MICROCONTROLADORES
 \vspace{0.3cm}
 
 \begin{tabular}{@{}l@{\hspace{1em}}c@{\hspace{0.5em}}l@{}}
-\textbf{EXPERIMENTO C} & \textbf{-} & \textbf{EXPERIMENTO DE DISPERSÃO CONDUTIVÍMETROS} \\
+\textbf{EXPERIMENTO C} & \textbf{-} & \textbf{DISPERSÃO DE SAL EM CANAL COM CONDUTIVÍMETROS DE BAIXO CUSTO} \\
 \end{tabular}
 
 \vfill
@@ -157,12 +155,11 @@ CURITIBA\\
 \newpage
 \pagenumbering{gobble}
 % ================== RESUMO ==================
-% [ATUALIZAR] O resumo trata só do experimento de 09/11. Incluir a calibração, o experimento de 26/10, a comparação entre os resultados e a visão ambiental.
 \begin{abstract}
 \begin{singlespace}
 \noindent
 
-Este trabalho apresenta o desenvolvimento e a avaliação de um condutivímetro de baixo custo com medição de temperatura, baseado no microcontrolador ESP8266, no sensor TDS analógico e no sensor DS18B20. O protótipo foi testado com outros quatro sensores semelhantes em um canal de laboratório com inclinação variável, em cinco ensaios com pulsos de NaCl e inclinações de 0° a 2,5°. Os dados foram enviados por Wi-Fi e processados em Python, com controle de qualidade, intercalibração entre sensores, cálculo dos momentos temporais e ajuste por propagação (\emph{routing}) entre duas seções. Com os cinco sensores na mesma água, o ruído foi próximo de 1\,\% e as diferenças entre sondas chegaram a 9\,\%. No trecho entre as seções, a velocidade média variou de 3,2 a 7,1~cm/s e o coeficiente de dispersão longitudinal, de 9,5 a 20,0~cm$^2$/s, sem relação definida com a declividade, pois o escoamento não era uniforme. A velocidade medida concordou com a obtida pela vazão do Venturi, e a expressão de Fischer reproduziu a ordem de grandeza da dispersão. A principal limitação foi a mistura incompleta do traçador, que, mais denso que a água, escoou junto ao fundo. O protótipo mostrou-se adequado para ensaios com traçador salino e para o monitoramento contínuo de condutividade e temperatura.
+Este trabalho apresenta o desenvolvimento e a avaliação de um condutivímetro de baixo custo com medição de temperatura, baseado no microcontrolador ESP8266, no sensor TDS analógico e no sensor DS18B20. O trabalho teve três etapas. Na calibração em laboratório, com soluções de NaCl, a resposta foi linear até cerca de 2200~\uScm, com $k = 0{,}31$~mg/L por \uScm; a sonda leu até 65\,\% acima da condutividade teórica, e outra sonda do mesmo modelo teve constante 19\,\% maior. Em seguida, o protótipo e outros quatro sensores semelhantes foram usados em um canal de laboratório para medir a passagem de pulsos de sal. No primeiro experimento (26/10), com gravação no cartão microSD, o relógio das placas estava errado, e a sincronização foi reconstruída pelos próprios sinais; a velocidade média foi de 4,1~cm/s e o coeficiente de dispersão longitudinal, de 6 a 11~cm$^2$/s. No segundo (09/11), com envio por Wi-Fi e cinco inclinações do canal, de 0° a 2,5°, a velocidade variou de 3,2 a 7,1~cm/s e o coeficiente, de 9,5 a 20,0~cm$^2$/s, sem relação com a declividade, porque o escoamento não era uniforme. Nos dois experimentos, o ruído foi de cerca de 1~\uScm, a velocidade concordou com a vazão medida e a expressão de Fischer reproduziu a ordem de grandeza da dispersão. A principal limitação foi a mistura incompleta da solução de sal, que, mais densa que a água, escoou junto ao fundo. O protótipo mostrou-se adequado para ensaios com traçador salino e para o monitoramento contínuo de condutividade, inclusive para detectar picos de cloreto acima do limite da Resolução CONAMA 357/2005.
 
 \vspace{\baselineskip}
 \noindent
@@ -191,18 +188,16 @@ O cloreto de sódio (NaCl) é um traçador simples para esse tipo de ensaio: é 
 
 Condutivímetros comerciais são precisos, mas custam em geral mais de mil dólares~\cite{grochocki2025}, e o custo dos equipamentos e da logística limita o número de pontos monitorados em muitos países. No Brasil, por exemplo, a rede básica de qualidade da água da Agência Nacional de Águas tem cerca de 1340 pontos para todo o território~\cite{camargo2023}. Sensores de baixo custo ligados a microcontroladores, com envio dos dados pela internet, permitem ampliar esse monitoramento e instalar vários pontos de medição ao mesmo tempo, desde que sejam calibrados e tenham o desempenho avaliado frente a medições de referência~\cite{camargo2023,visco2023}. Essa característica é especialmente útil em ensaios com traçador, que exigem registros simultâneos e sincronizados em várias seções do escoamento.
 
-Neste trabalho, um condutivímetro de baixo custo com medição de temperatura, baseado no microcontrolador ESP8266, foi montado e testado em um canal de laboratório de inclinação variável, junto com os protótipos dos demais grupos, em ensaios com pulsos de NaCl. Os objetivos foram: (i) avaliar o desempenho do protótipo, quanto ao ruído das leituras e às diferenças em relação aos outros sensores na mesma água; (ii) estimar a velocidade média e o coeficiente de dispersão longitudinal a partir das curvas de passagem do traçador; e (iii) analisar como essas grandezas variam com a declividade do canal. A Seção~\ref{sec:metodos} descreve o arranjo experimental, o sensor, o circuito, o algoritmo de medição e o processamento dos dados; a Seção~\ref{sec:resultados} apresenta e discute os resultados; e a Seção~\ref{sec:conclusoes-expC} reúne as conclusões, as limitações e as sugestões de melhoria.
+Neste trabalho, um condutivímetro de baixo custo com medição de temperatura, baseado no microcontrolador ESP8266, foi montado, calibrado e testado em um canal de laboratório, junto com os protótipos dos demais grupos, em ensaios com pulsos de NaCl. Os objetivos foram: (i) calibrar a sonda em concentração de sal e comparar a sua resposta com a de outra sonda e com a condutividade teórica do NaCl; (ii) avaliar o desempenho do protótipo no canal, quanto ao ruído, às falhas de registro e às diferenças em relação aos outros sensores na mesma água; (iii) estimar a velocidade média e o coeficiente de dispersão longitudinal a partir das curvas de passagem do traçador, em dois experimentos, um com gravação no cartão de memória (26/10) e outro com envio por Wi-Fi e variação da inclinação do canal (09/11); e (iv) discutir o que esses resultados indicam para o monitoramento de contaminantes em rios.
 
-% [ATUALIZAR] O parágrafo acima (objetivos e organização do relatório) descreve a estrutura antiga. Incluir a calibração, o experimento de 26/10, a comparação entre os resultados e a visão ambiental.
+A Seção~\ref{sec:metodos} descreve o sensor, o circuito, o algoritmo de medição e os procedimentos das três etapas; a Seção~\ref{sec:resultados} apresenta os resultados de cada etapa; a Seção~\ref{sec:comparacao} compara as etapas entre si; a Seção~\ref{sec:visao_ambiental} discute os resultados do ponto de vista ambiental; e a Seção~\ref{sec:conclusoes-expC} reúne as conclusões. Neste relatório, \emph{experimento} designa cada dia de medição no canal, e \emph{ensaio} ou \emph{pulso}, cada injeção de sal.
+
 
 
 \section{Métodos}
 \label{sec:metodos}
 
-% [REORGANIZAÇÃO] Seções 2.1 a 2.5: descrição do protótipo, comum às três etapas (texto sem alteração).
-% Depois vêm as três etapas: 2.6 Calibração, 2.7 Experimento de 26/10 e 2.8 Experimento de 09/11.
-% O parágrafo de abertura que ficava aqui (ensaios de 09/11) foi para o início da Seção 2.8.
-% [ATUALIZAR] Se quiserem, escrever aqui um parágrafo curto apresentando as três etapas.
+As Seções~\ref{sec:principio} a~\ref{sec:algoritmo} descrevem o protótipo, que foi o mesmo nas três etapas do trabalho. As seções seguintes descrevem cada etapa: a calibração em laboratório, em 05/10 (Seção~\ref{sec:met_calibracao}), o experimento no canal com gravação no cartão de memória, em 26/10 (Seção~\ref{sec:met_exp2610}), e o experimento com envio por Wi-Fi e variação da inclinação, em 09/11 (Seção~\ref{sec:met_exp0911}).
 
 %------------------------------------------------------------------------------
 \subsection{Princípio de funcionamento dos sensores}
@@ -231,7 +226,7 @@ Como a condutividade de uma solução aumenta cerca de 2\,\% por grau Celsius, a
 
 O circuito foi montado em protoboard (Figura~\ref{fig:circuito} e Tabela~\ref{tab:ligacoes}). O microcontrolador utilizado é o Wemos D1 mini, baseado no ESP8266. Todos os módulos são alimentados em 3,3~V pelo pino 3V3 do Wemos, por meio das trilhas laterais da protoboard.
 
-O sensor TDS é ligado à única entrada analógica do ESP8266 (A0), que no Wemos D1 mini admite tensões de 0 a 3,2~V e é lida por um conversor de 10~bits (0 a 1023). O DS18B20 utiliza o pino digital D4, com o resistor de 4,7~k$\Omega$ entre a linha de dados e o 3V3. O relógio de tempo real (RTC DS3231), que tem bateria própria e mantém a data e a hora mesmo com o sistema desligado, comunica-se pelo barramento I2C (D1 e D2). O módulo de cartão microSD, com o cartão formatado em FAT32, utiliza o barramento SPI (D5, D6 e D7), com seleção pelo pino D0.
+O sensor TDS é ligado à única entrada analógica do ESP8266 (A0), que no Wemos D1 mini admite tensões de 0 a 3,2~V e é lida por um conversor de 10~bits (0 a 1023). O DS18B20 utiliza o pino digital D4, com o resistor de 4,7~k$\Omega$ entre a linha de dados e o 3V3. O relógio de tempo real (RTC DS3231), que tem bateria própria e deveria manter a data e a hora com o sistema desligado (o que não ocorreu no experimento de 26/10, Seção~\ref{sec:met_exp2610}), comunica-se pelo barramento I2C (D1 e D2). O módulo de cartão microSD, com o cartão formatado em FAT32, utiliza o barramento SPI (D5, D6 e D7), com seleção pelo pino D0.
 
 \begin{figure}[H]
   \centering
@@ -268,7 +263,7 @@ Para operar sem conexão a um computador, o protótipo é alimentado por uma bat
 
 Para uso em campo, a protoboard com o Wemos e os módulos, a bateria e o carregador são acondicionados em uma caixa com grau de proteção IP67, da qual saem apenas os cabos da sonda de condutividade e do sensor de temperatura. A placa condicionadora do sensor TDS e o microcontrolador não são à prova d'água e devem permanecer fora da água.
 
-No canal, a sonda de condutividade e o DS18B20 foram fixados na posição A, a 91,15~cm do início do canal e 18~cm acima do fundo, com os eletrodos totalmente submersos e sem contato com o fundo ou com as paredes.
+No canal, a sonda de condutividade e o DS18B20 foram fixados juntos na posição A, com os eletrodos totalmente submersos e sem contato com o fundo ou com as paredes: a 0,60~m do ponto de lançamento e cerca de 2~cm abaixo da superfície em 26/10, e a 91,15~cm do início do canal e 18~cm acima do fundo em 09/11 (Seções~\ref{sec:met_exp2610} e~\ref{sec:met_exp0911}).
 
 \begin{figure}[H]
   \centering
@@ -285,7 +280,7 @@ No canal, a sonda de condutividade e o DS18B20 foram fixados na posição A, a 9
   \item Grandezas medidas: condutividade elétrica referida a 25~°C (\uScm) e temperatura da água (°C).
   \item Faixa de condutividade: 0 a cerca de 2000~\uScm{} (saída do sensor de 0 a 2,3~V); exatidão nominal de $\pm 10\,\%$ do fundo de escala.
   \item Temperatura: exatidão de $\pm 0{,}5$~°C e resolução de 0,0625~°C.
-  \item Intervalo de medição: cerca de 1~s (envio por Wi-Fi) ou 2~s (gravação no cartão microSD).
+  \item Intervalo de medição: cerca de 1~s (envio por Wi-Fi) ou 1,2 a 1,6~s (gravação no cartão microSD).
   \item Alimentação: bateria de lítio 18650 (3,7~V, 3450~mAh), recarregável pela entrada USB-C do módulo TP4056.
 \end{itemize}
 
@@ -344,7 +339,7 @@ O código embarcado é um programa de \emph{datalogger} escrito em C++ com o \em
 
 \subsubsection{Registro dos dados}
 
-O registro dos dados foi feito de duas formas. Na calibração, as leituras foram gravadas no arquivo \texttt{dados.txt} do cartão microSD, com data e hora fornecidas pelo RTC. Nesse modo, o arquivo é aberto e fechado a cada linha, de forma que uma falha de alimentação compromete apenas a última medição, e cada ciclo dura cerca de 2~s. No ensaio em canal, as placas realizaram uma medição por segundo e transmitiram as leituras por Wi-Fi a cada 5~s. Os dados das cinco placas foram reunidos em um único arquivo (\texttt{sensor\_data.csv}), com data e hora, identificador da placa, temperatura, tensão e condutividade. As Eqs.~\eqref{eq:comp} e~\eqref{eq:poli} reproduzem a condutividade desse arquivo a partir da tensão e da temperatura registradas, com diferença típica inferior a 0,5~\uScm.
+O registro dos dados foi feito de duas formas. Na calibração e no experimento de 26/10, as leituras foram gravadas no arquivo \texttt{dados.txt} do cartão microSD, com data e hora fornecidas pelo RTC. Nesse modo, o arquivo é aberto e fechado a cada linha, de forma que uma falha de alimentação compromete apenas a última medição, e cada ciclo durou de 1,2 a 1,6~s, conforme a placa. No experimento de 09/11, as placas fizeram uma medição por segundo e transmitiram as leituras por Wi-Fi a cada 5~s. Os dados das cinco placas foram reunidos em um único arquivo (\texttt{sensor\_data.csv}), com data e hora, identificador da placa, temperatura, tensão e condutividade. As Eqs.~\eqref{eq:comp} e~\eqref{eq:poli} reproduzem a condutividade desse arquivo a partir da tensão e da temperatura registradas, com diferença típica inferior a 0,5~\uScm.
 
 \subsubsection{Processamento interno e externo}
 
@@ -362,7 +357,7 @@ O sensor não aplica outros filtros nem calcula estatísticas. Todo o tratamento
     Média de 20 leituras do conversor A/D, Eq.~\eqref{eq:adc} & Sensor \\
     Correção de temperatura, Eq.~\eqref{eq:comp} & Sensor \\
     Conversão de tensão em condutividade, Eq.~\eqref{eq:poli} & Sensor \\
-    Gravação no cartão microSD (calibração) ou envio por Wi-Fi a cada 5~s (ensaio) & Sensor \\
+    Gravação no cartão microSD (calibração e 26/10) ou envio por Wi-Fi a cada 5~s (09/11) & Sensor \\
     \midrule
     Reamostragem em grade regular de 1~s & Externo \\
     Remoção de falhas de leitura e interpolação de lacunas & Externo \\
@@ -379,7 +374,6 @@ O sensor não aplica outros filtros nem calcula estatísticas. Todo o tratamento
 \subsection{Calibração}
 \label{sec:met_calibracao}
 
-% [REORGANIZAÇÃO] Texto da antiga subseção "Traçador e calibração" (que estava dentro de Princípio de funcionamento), sem alteração.
 O NaCl foi utilizado como traçador conservativo. Em soluções diluídas, o aumento da condutividade é aproximadamente proporcional ao aumento da concentração de sal,
 \begin{equation}
   C(t) - C_0 = k\,\bigl[\kappa(t) - \kappa_0\bigr],
@@ -391,7 +385,7 @@ A calibração da sonda em concentração foi realizada em 05/10/2026, com o equ
 
 \subsubsection{Ajuste da curva de calibração}
 
-A Eq.~\eqref{eq:proporcional} foi ajustada aos pontos por mínimos quadrados, com $\kappa_0$ igual à leitura da água sem sal e $C_0 = 0$, de forma que a reta passa pelo ponto sem adição de sal e $k$ é o único parâmetro ajustado. Para comparação, ajustou-se também uma reta livre, $C = a\,\kappa + b$. A qualidade dos ajustes foi avaliada pelo coeficiente de determinação ($R^2$), pela raiz do erro quadrático médio (RMSE), pelo erro absoluto médio (MAE) e pelo viés, e a incerteza de $k$ foi expressa pelo intervalo de confiança de 95\,\%. Para verificar a influência da forma de calcular o valor de cada degrau, $k$ também foi obtido com a mediana e com a média apenas dos últimos 30~s de cada concentração. O ajuste foi feito na faixa de 0 a 0,6~g/L; o ponto de 0,8~g/L, cuja leitura (cerca de 2500~\uScm) excedeu a faixa nominal do sensor, ficou fora do ajuste. Os cálculos foram feitos em Python, em um \emph{notebook} do Google Colab (\texttt{calibracao\_sonda\_A.ipynb}).
+A Eq.~\eqref{eq:proporcional} foi ajustada aos pontos por mínimos quadrados, com $\kappa_0$ igual à leitura da água sem sal e $C_0 = 0$, de forma que a reta passa pelo ponto sem adição de sal e $k$ é o único parâmetro ajustado. Para comparação, ajustou-se também uma reta livre, $C = a\,\kappa + b$. A qualidade dos ajustes foi avaliada pelo coeficiente de determinação ($R^2$), pela raiz do erro quadrático médio (RMSE), pelo erro absoluto médio (MAE) e pelo viés, e a incerteza de $k$ foi expressa pelo intervalo de confiança de 95\,\%. Para verificar a influência da forma de calcular o valor de cada degrau, $k$ também foi obtido com a mediana e com a média apenas dos últimos 30~s de cada concentração. O ajuste foi feito na faixa de 0 a 0,6~g/L; o ponto de 0,8~g/L, cuja leitura (2437~\uScm) excedeu a faixa nominal do sensor, ficou fora do ajuste. Os cálculos estão no \emph{notebook} \texttt{processamento\_\allowbreak dispersao.ipynb} (Seção~9 do \emph{notebook}).
 
 O desempenho das curvas também foi resumido em um diagrama de Taylor~\cite{taylor2001}, que reúne em um único gráfico o coeficiente de correlação, o desvio-padrão e o RMSE centrado de uma série estimada em relação a uma série de referência. A referência foi a concentração preparada em cada degrau, e cada leitura individual da sonda na faixa de 0 a 0,6~g/L foi convertida em concentração de três formas: sem calibração, com o fator de 0,5 do fabricante, $C = 0{,}5\,(\kappa - \kappa_0)$; pela Eq.~\eqref{eq:proporcional}; e pela reta livre.
 
@@ -408,28 +402,25 @@ em que $c$ é a concentração molar do sal ($c = C/58{,}44$~g/mol) e $\Lambda$ 
 
 Para avaliar a variação entre sondas, a mesma análise foi aplicada à calibração da sonda~E (grupo Richards), realizada no mesmo dia e com o mesmo procedimento. Para as duas sondas, $k$ foi ajustado na faixa de 0 a 0,6~g/L.
 
-% [REORGANIZAÇÃO] A figura da curva de calibração (fig:calibracao) foi para Resultados > Calibração.
-Os valores de $U$ e $D_L$ apresentados neste relatório foram calculados a partir de curvas normalizadas pela própria área e, portanto, não dependem de $k$.
 
 %------------------------------------------------------------------------------
 \subsection{Experimento de 26/10/2026}
 \label{sec:met_exp2610}
 
-O primeiro ensaio no canal foi realizado em 26/10/2026, com os mesmos cinco condutivímetros do ensaio de 09/11, cada um gravando os dados no próprio cartão microSD (Seção~\ref{sec:algoritmo}). Os sensores B (ESP-848B36, grupo McCartney) e D (ESP-104D45, grupo Bonham) ficaram a meia profundidade nas seções $x_1$ e $x_2$, respectivamente (Figura~\ref{fig:quadro2610}), mas os seus arquivos não estavam disponíveis. Este relatório utiliza os dados dos outros três: o sensor A (ESP-D68785, grupo Harrison), o sensor C (ESP-4EE77C, grupo Star) e o sensor E (ESP-C9C537, grupo Richards).
+O primeiro experimento no canal foi realizado em 26/10/2026, com os mesmos cinco condutivímetros do experimento de 09/11, cada um gravando os dados no próprio cartão microSD (Seção~\ref{sec:algoritmo}). Os sensores B (ESP-848B36, grupo McCartney) e D (ESP-104D45, grupo Bonham) ficaram a meia profundidade nas seções $x_1$ e $x_2$, respectivamente (Figura~\ref{fig:quadro2610}), mas os seus arquivos não estavam disponíveis. Este relatório utiliza os dados dos outros três: o sensor A (ESP-D68785, grupo Harrison), o sensor C (ESP-4EE77C, grupo Star) e o sensor E (ESP-C9C537, grupo Richards).
 
-\paragraph{Local de instalação e ensaios}
+\subsubsection{Local de instalação e ensaios}
 O arranjo foi registrado no quadro do laboratório (Figura~\ref{fig:quadro2610}). O canal tem largura $B = 0{,}145$~m (no quadro foi anotado 0,135~m) e a lâmina d'água $h = 19{,}5$~cm, e o sal foi lançado na posição $x_0 = 0$. Os sensores foram instalados em três seções: A a $x_1 = 0{,}60$~m, cerca de 2~cm abaixo da superfície; C a $x_2 = 1{,}14$~m, cerca de 4~cm abaixo da superfície; e E a $x_3 = 2{,}22$~m, a cerca de 9,5~cm de profundidade, perto da meia altura da lâmina. Foram feitas três injeções de 90~mL, anotadas às 16h43, 16h46 e 16h50. Nas duas primeiras foi usada a solução da condição inicial anotada no quadro, de 0,8~g/L; na terceira, 11~g de NaCl em 90~mL (122~g/L).
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.95\linewidth]{figuras/quadro_esquema_canal_2026-10-07.jpeg}
-  \caption{Esquema do ensaio de 26/10/2026 no quadro do laboratório: seções $x_1 = 0{,}60$~m (sensor A, ``Harrison''), $x_2 = 1{,}14$~m (sensor C, ``Star'') e $x_3 = 2{,}22$~m (sensor E, ``Richards''), lâmina $h = 19{,}5$~cm e horários das injeções.}
+  \caption{Esquema do experimento de 26/10/2026 no quadro do laboratório: seções $x_1 = 0{,}60$~m (sensor A, ``Harrison''), $x_2 = 1{,}14$~m (sensor C, ``Star'') e $x_3 = 2{,}22$~m (sensor E, ``Richards''), lâmina $h = 19{,}5$~cm e horários das injeções.}
   \label{fig:quadro2610}
 \end{figure}
 
-\paragraph{Problema no registro de data e hora}
-Em cada leitura, o \emph{firmware} grava a data e a hora do RTC DS3231. Esse relógio só é acertado quando o próprio módulo indica perda de alimentação, e nesse caso recebe a data e a hora da compilação do programa. Nos arquivos de 26/10, a data e a hora não correspondem ao dia do ensaio. Os arquivos dos sensores A e C acumulam, no mesmo \texttt{dados.txt}, o teste da Aula~07 (28/09), a calibração (05/10, até 16:20) e o ensaio no canal, e todo o trecho do ensaio está registrado com a data 05/10/2026, entre 16:24 e 16:54. O arquivo do sensor E contém apenas o ensaio, com horários de 14:23 a 14:35, cerca de 2~h~19~min antes do horário real. Por esse motivo, o ensaio foi repetido em 09/11 com transmissão por Wi-Fi (Seção~\ref{sec:met_exp0911}).
-Os horários de A e C, no entanto, coincidem com os anotados no quadro com diferença menor que 1~min; apenas a data está errada nesses dois arquivos.
+\subsubsection{Problema no registro de data e hora}
+Em cada leitura, o \emph{firmware} grava a data e a hora do RTC DS3231. Esse relógio só é acertado quando o próprio módulo indica perda de alimentação, e nesse caso recebe a data e a hora da compilação do programa. Nos arquivos dos sensores A e C, só a data está errada: o ensaio aparece com a data de 05/10/2026, mas os horários (16:24 a 16:54) coincidem com os anotados no quadro, com diferença menor que 1~min. Esses dois arquivos também acumulam, no mesmo \texttt{dados.txt}, o teste da Aula~07 (28/09) e a calibração (05/10). No arquivo do sensor E, que contém só o ensaio, a hora está cerca de 2~h~19~min atrasada (14:23 a 14:35). Por esse motivo, o experimento foi repetido em 09/11 com transmissão por Wi-Fi (Seção~\ref{sec:met_exp0911}).
 
 Como os horários absolutos não são confiáveis, a análise usou apenas diferenças de tempo, de duas formas:
 \begin{itemize}
@@ -437,15 +428,20 @@ Como os horários absolutos não são confiáveis, a análise usou apenas difere
   \item \textbf{Sensor E.} O relógio de E foi realinhado pelos próprios pulsos. A diferença entre os centroides de E e de A, cada um no seu relógio, foi praticamente a mesma nos três pulsos, o que mostra que o relógio de E tem apenas um deslocamento constante. Essa diferença, porém, soma o deslocamento do relógio e o tempo de viagem de A até E, que não podem ser separados. Para colocar E no relógio de A, adotou-se o tempo de viagem $(x_3 - x_1)/U_{AC}$, com a velocidade medida entre A e C, isto é, admitindo velocidade constante entre A e E.
 \end{itemize}
 
-\paragraph{Processamento}
-Os arquivos foram lidos diretamente do cartão, descartando as linhas corrompidas (data ilegível), as linhas de cabeçalho gravadas a cada reinício da placa e as leituras com o DS18B20 desconectado ($-127$~°C). Foi analisado o trecho a partir de 16:33, quando as sondas A e C já estavam no canal. O intervalo médio entre leituras foi de 1,25~s em A e C e de 1,56~s em E. As séries foram reamostradas em grade de 1~s e os pulsos foram isolados e caracterizados como no ensaio de 09/11 (Seção~\ref{sec:processamento}), com duas adaptações: a média móvel foi de 3~s e o fim do pulso foi definido pelo sinal 4~s abaixo de 5\,\% do pico, porque os pulsos foram mais curtos. A linha de base foi a mediana do minuto anterior ao início de cada pulso.
+\subsubsection{Processamento}
+Os arquivos foram lidos diretamente do cartão, descartando as linhas corrompidas (data ilegível), as linhas de cabeçalho gravadas a cada reinício da placa e as leituras com o DS18B20 desconectado ($-127$~°C). Foi analisado o trecho a partir de 16:33, quando as sondas A e C já estavam no canal. O intervalo médio entre leituras foi de 1,25~s em A e C e de 1,56~s em E. As séries foram reamostradas em grade de 1~s e os pulsos foram isolados e caracterizados como no experimento de 09/11 (Seção~\ref{sec:processamento}), com duas adaptações: a média móvel foi de 3~s e o fim do pulso foi definido pelo sinal 4~s abaixo de 5\,\% do pico, porque os pulsos foram mais curtos. A linha de base foi a mediana do minuto anterior ao início de cada pulso.
 
 No trecho A$\rightarrow$C ($\Delta x = 0{,}54$~m), $U$ e $D_L$ foram obtidos pelos momentos, Eq.~\eqref{eq:dl_momentos}, e pelo \emph{routing}, Eq.~\eqref{eq:routing}, com a mesma análise de sensibilidade de 09/11 (limiar de 2, 5 e 10\,\% e média móvel de 1, 3 e 5~s). No trecho C$\rightarrow$E ($\Delta x = 1{,}08$~m), a velocidade foi fixada no valor médio de A$\rightarrow$C e apenas $D_L$ foi estimado: pelos momentos, na forma
 \begin{equation}
   D_L = \frac{U^{3}\,\bigl(\sigma_{t,E}^{2} - \sigma_{t,C}^{2}\bigr)}{2\,\Delta x},
   \label{eq:dl_var_2610}
 \end{equation}
-que depende apenas da diferença de variâncias e, portanto, não depende do relógio de E, e pelo \emph{routing}, ajustando $D_L$ e um pequeno atraso residual que absorve o erro do realinhamento. O instante de cada injeção foi estimado pela Eq.~\eqref{eq:t0}. A vazão foi estimada pela continuidade, $Q = U B h$, e de forma independente pela diluição, Eq.~\eqref{eq:diluicao}, com a calibração de cada sonda ($k = 0{,}31$, 0,308 e 0,37~mg\,L$^{-1}$ por \uScm\ para A, C e E) e as massas injetadas. O processamento está no \emph{notebook} \texttt{experimento\_\allowbreak 2610.ipynb}.
+que depende apenas da diferença de variâncias e, portanto, não depende do relógio de E, e pelo \emph{routing}, ajustando $D_L$ e um pequeno atraso residual que absorve o erro do realinhamento. O instante de cada injeção foi estimado pela Eq.~\eqref{eq:t0}. A vazão foi estimada pela continuidade, $Q = U B h$, e de forma independente pelo método de diluição. Para uma massa $M$ de sal injetada de uma vez, a vazão é
+\begin{equation}
+  Q = \frac{M}{\displaystyle\int \bigl[C(t) - C_0\bigr]\,\mathrm{d}t},
+  \label{eq:diluicao}
+\end{equation}
+em que a concentração foi obtida pela Eq.~\eqref{eq:proporcional}, com a calibração de cada sonda ($k = 0{,}31$, 0,308 e 0,37~mg/L por \uScm\ para A, C e E). O processamento está no \emph{notebook} \texttt{experimento\_\allowbreak 2610.ipynb}.
 
 %------------------------------------------------------------------------------
 \subsection{Experimento de 09/11/2026: variação da inclinação do canal}
@@ -453,7 +449,6 @@ que depende apenas da diferença de variâncias e, portanto, não depende do rel
 
 Os ensaios foram realizados em 09/11/2026, em um canal de laboratório com inclinação variável, no qual foram instalados simultaneamente cinco condutivímetros com medição de temperatura. Em cada ensaio, um pulso de solução de cloreto de sódio (NaCl) foi lançado no escoamento e os sensores registraram a passagem da nuvem de traçador. O sensor avaliado neste relatório é a placa ESP-D68785, instalada na posição~A.
 
-% [REORGANIZAÇÃO] Daqui até o fim de Métodos: "Local de instalação" e "Processamento e análise estatística dos dados", agora um nível abaixo (texto sem alteração).
 %------------------------------------------------------------------------------
 \subsubsection{Local de instalação}
 \label{sec:local}
@@ -525,7 +520,7 @@ em que $\rho_{Hg}/\rho_{w} = 13{,}6$ e $C_d$ é o coeficiente de descarga, adota
 
 \paragraph{Ferramentas}
 
-O tratamento dos dados foi realizado em Python~3, no Google Colab, com as bibliotecas pandas, NumPy, SciPy e Matplotlib. O \emph{notebook} \texttt{processamento\_\allowbreak dispersao\_\allowbreak colab.ipynb}, anexo a este relatório, reproduz todas as tabelas e figuras a partir do arquivo de dados. A Figura~\ref{fig:tratamento} ilustra as etapas aplicadas aos dados do sensor A.
+O tratamento dos dados foi realizado em Python~3, no Google Colab, com as bibliotecas pandas, NumPy, SciPy e Matplotlib. O \emph{notebook} \texttt{processamento\_\allowbreak dispersao.ipynb}, anexo a este relatório, reproduz todas as tabelas e figuras a partir do arquivo de dados. A Figura~\ref{fig:tratamento} ilustra as etapas aplicadas aos dados do sensor A.
 
 \begin{figure}[H]
   \centering
@@ -587,18 +582,12 @@ em que os índices 1 e 2 se referem às seções. No procedimento de propagaçã
   \qquad t_p = \frac{\Delta x}{U},
   \label{eq:routing}
 \end{equation}
-em que $c$ é a curva $\Delta\kappa(t)$ normalizada pela área. Os parâmetros $U$ e $D_L$ foram ajustados por mínimos quadrados não lineares, minimizando a soma dos quadrados das diferenças entre a curva prevista $\hat{c}(x_2,t)$ e a curva medida na seção~2, com os valores da Eq.~\eqref{eq:dl_momentos} como estimativa inicial. A qualidade do ajuste foi avaliada pelo coeficiente de determinação $R^2$. O \emph{routing} foi adotado como resultado principal por utilizar a forma completa das curvas e ser menos sensível às caudas do que a diferença de variâncias da Eq.~\eqref{eq:dl_momentos}, que pode inclusive resultar em valores negativos.
+em que $c$ é a curva $\Delta\kappa(t)$ normalizada pela área. Por usarem curvas normalizadas, $U$ e $D_L$ não dependem da constante de calibração $k$. Os parâmetros $U$ e $D_L$ foram ajustados por mínimos quadrados não lineares, minimizando a soma dos quadrados das diferenças entre a curva prevista $\hat{c}(x_2,t)$ e a curva medida na seção~2, com os valores da Eq.~\eqref{eq:dl_momentos} como estimativa inicial. A qualidade do ajuste foi avaliada pelo coeficiente de determinação $R^2$. O \emph{routing} foi adotado como resultado principal por utilizar a forma completa das curvas e ser menos sensível às caudas do que a diferença de variâncias da Eq.~\eqref{eq:dl_momentos}, que pode inclusive resultar em valores negativos.
 
 O cálculo foi realizado para três combinações de sensores: A$\rightarrow$C, B$\rightarrow$D e a média das curvas de cada seção (A e B $\rightarrow$ C e D), após a multiplicação de cada curva pelo respectivo fator $f_i$. Os trechos até o sensor E, C$\rightarrow$E ($\Delta x = 0{,}87$~m) e A$\rightarrow$E ($\Delta x = 1{,}4185$~m), foram analisados da mesma forma e são apresentados separadamente (Seção~\ref{sec:res_jusante}).
 
 \paragraph{Verificação com o \emph{Dispersion Analyzer}}
-Os mesmos dados foram processados com o pacote \emph{Dispersion Analyzer}, versão 1.0.0~\cite{bueno2026}, a partir das séries já reamostradas em 1~s e sem as falhas de leitura (\texttt{analise\_dispersion\_analyzer.py}). As demais etapas foram executadas pelas funções do pacote: conversão da condutividade em concentração pela condutividade teórica do NaCl a 25~°C (modo \texttt{nacl}); estimativa automática do fundo antes da subida da curva, com concentração em excesso $C = f(\kappa) - f(\kappa_{\mathrm{fundo}})$; definição do fim da pluma quando $C$ permanece abaixo de 2\,\% do pico por três leituras consecutivas; e aplicação do método de Fischer, Eq.~\eqref{eq:dl_momentos}, e da propagação, Eq.~\eqref{eq:routing}, para as mesmas combinações de sensores.
-
-Na janela completa de cada ensaio, o sal que retorna pela recirculação mantém o sinal acima de 2\,\% do pico, e o pacote interpreta a passagem como incompleta. Por esse motivo, a série de cada sonda foi recortada no fim do pulso principal (opção \texttt{t\_max} do pacote), no mesmo instante definido no isolamento dos pulsos.
-
-Na propagação, o pacote fixa $U = \Delta x / (\bar{t}_2 - \bar{t}_1)$ e ajusta apenas $D_L$. Foram utilizadas duas opções: a padrão, que compara as concentrações medidas, e a que normaliza a massa das curvas e compara apenas suas formas, equivalente ao \emph{routing} descrito acima. A opção que ajusta também $U$ não foi utilizada, pois nela o intervalo entre os centroides permanece fixo, de modo que $U$ e $D_L$ entram no ajuste apenas pela razão $D_L/U^2$ e não podem ser determinados separadamente.
-
-O pacote também avalia a mistura na seção pelo coeficiente de variação das áreas $\int C\,\mathrm{d}t$ das sondas da mesma seção (mistura completa para CV $\leq 10\,\%$) e a conservação de massa pela razão entre as áreas das duas seções. Os métodos de um único ponto (velocidade do pico, momentos, percentis, ajuste da solução analítica, Eq.~\eqref{eq:gauss}, e Chatwin) foram aplicados a cada sensor, com a distância $x = d$ até o lançamento e duas referências de tempo: o horário anotado, tomado como hh:mm:00, e o instante estimado pela extrapolação dos centroides de A e C até o ponto de lançamento,
+Os mesmos dados foram processados com o pacote \emph{Dispersion Analyzer}, versão 1.0.0~\cite{bueno2026}, a partir das séries já reamostradas e sem as falhas de leitura (Seção~8 do \emph{notebook}). O pacote converte a condutividade em concentração pela condutividade teórica do NaCl, estima o fundo automaticamente e aplica o método de Fischer, Eq.~\eqref{eq:dl_momentos}, e a propagação, Eq.~\eqref{eq:routing}, às mesmas combinações de sensores. Como o sal que retorna pela recirculação mantém o sinal elevado, a série de cada sonda foi recortada no fim do pulso principal. Na propagação, o pacote fixa $U$ pela diferença entre os centroides e ajusta só $D_L$, de duas formas: comparando as concentrações medidas (opção padrão) ou apenas as formas das curvas, normalizadas pela massa, o que equivale ao \emph{routing}. O pacote também avalia a mistura na seção pelo coeficiente de variação das áreas das sondas da mesma seção (mistura completa para CV $\leq 10\,\%$). Os métodos de um único ponto do pacote foram testados com o instante de injeção estimado pela extrapolação dos centroides de A e C até o ponto de lançamento,
 \begin{equation}
   t_0 = \bar{t}_A - \frac{x_A}{U_{AC}}, \qquad U_{AC} = \frac{x_C - x_A}{\bar{t}_C - \bar{t}_A}.
   \label{eq:t0}
@@ -698,7 +687,7 @@ A diferença cresce com a concentração, o que indica que a curva genérica do 
 
 \subsubsection{Comparação entre sondas}
 
-A Figura~\ref{fig:calibracao_sondas} e a Tabela~\ref{tab:calibracao_sondas} comparam a calibração da sonda~A com a da sonda~E. A sonda~E, calibrada no mesmo dia, apresentou relação linear em toda a faixa até 0,6~g/L ($R^2 = 0{,}995$); ajustada com todos os pontos até 0,8~g/L e sem passar pela origem, ela resulta em $C = 4{,}05\times10^{-4}\,\kappa - 0{,}0677$, a mesma curva registrada para essa sonda na planilha da turma. As duas sondas partiram de leituras semelhantes para a água sem sal (138 e 184~\uScm), mas a constante $k$ da sonda~E (0,37~mg/L por \uScm) foi cerca de 19\,\% maior que a da sonda~A. As duas ficaram abaixo do valor teórico (0,49), ou seja, ambas leram condutividades maiores que as reais. Como as duas sondas utilizam o mesmo modelo de sensor e a mesma curva do fabricante no código, essa diferença vem das próprias sondas e da placa de condicionamento de cada uma. A sonda~A foi a mais sensível: para a mesma concentração, registrou a maior condutividade.
+A Figura~\ref{fig:calibracao_sondas} e a Tabela~\ref{tab:calibracao_sondas} comparam a calibração da sonda~A com a da sonda~E. A sonda~E, calibrada no mesmo dia, apresentou relação linear em toda a faixa até 0,6~g/L ($R^2 = 0{,}995$); ajustada com todos os pontos até 0,8~g/L e sem passar pela origem, ela resulta em $C = 4{,}05\times10^{-4}\,\kappa - 0{,}0677$, a mesma curva registrada para essa sonda na planilha da turma. As duas sondas partiram de leituras semelhantes para a água sem sal (138 e 184~\uScm), mas a constante $k$ da sonda~E (0,37~mg/L por \uScm) foi cerca de 19\,\% maior que a da sonda~A. As duas ficaram abaixo do valor teórico (0,49), ou seja, ambas leram condutividades maiores que as reais. Como as duas sondas utilizam o mesmo modelo de sensor e a mesma curva do fabricante no código, essa diferença vem das próprias sondas e da placa de condicionamento de cada uma. A sonda~A foi mais sensível que a~E: para a mesma concentração, registrou condutividade maior.
 
 \begin{figure}[H]
   \centering
@@ -723,7 +712,7 @@ A Figura~\ref{fig:calibracao_sondas} e a Tabela~\ref{tab:calibracao_sondas} comp
   \end{tabular}}
 \end{table}
 
-Esse resultado tem duas consequências para os ensaios de dispersão. Primeiro, a conversão de condutividade em concentração com um valor único de $k$ produziria erros da ordem de 20\,\% entre sondas, o que justifica o uso de curvas normalizadas pela área no cálculo de $U$ e $D_L$ (Seção~\ref{sec:principio}). Segundo, as diferenças de sensibilidade entre sondas são maiores que as diferenças de leitura na água de referência, que no experimento de 09/11 ficaram entre $-5$ e $+4$\,\% (fatores $f_i$ da Tabela~\ref{tab:registro}). A intercalibração na água de referência corrige o deslocamento das leituras, mas não a diferença de inclinação das curvas, o que é coerente com a maior sensibilidade observada na sonda~C durante os ensaios (Seção~\ref{sec:res_series}).
+Isso tem duas consequências para os ensaios de dispersão. Primeiro, a conversão de condutividade em concentração com um valor único de $k$ produziria erros da ordem de 20\,\% entre sondas, o que justifica o uso de curvas normalizadas pela área no cálculo de $U$ e $D_L$ (Seção~\ref{sec:processamento}). Segundo, as diferenças de sensibilidade entre sondas são maiores que as diferenças de leitura na água de referência, que no experimento de 09/11 ficaram entre $-5$ e $+4$\,\% (fatores $f_i$ da Tabela~\ref{tab:registro}). A intercalibração na água de referência corrige o deslocamento das leituras, mas não a diferença de inclinação das curvas, o que é coerente com a maior sensibilidade observada na sonda~C durante os ensaios (Seção~\ref{sec:res_series}).
 
 %------------------------------------------------------------------------------
 \subsection{Experimento de 26/10/2026}
@@ -736,7 +725,7 @@ A Figura~\ref{fig:serie2610} mostra o registro dos três sensores, com o sensor 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figuras/F12_exp2610_series.pdf}
-  \caption{Ensaio de 26/10/2026. (a) Condutividade nos sensores A, C e E, com E deslocado para o relógio de A; linhas tracejadas: horários anotados das injeções; linhas pontilhadas: instantes estimados pela Eq.~\eqref{eq:t0}. (b) Detalhe dos pulsos 1 e 2, com a queda da leitura de C durante a passagem do sal pela seção de A.}
+  \caption{Experimento de 26/10/2026. (a) Condutividade nos sensores A, C e E, com E deslocado para o relógio de A; linhas tracejadas: horários anotados das injeções; linhas pontilhadas: instantes estimados pela Eq.~\eqref{eq:t0}. (b) Detalhe dos pulsos 1 e 2, com a queda da leitura de C durante a passagem do sal pela seção de A.}
   \label{fig:serie2610}
 \end{figure}
 
@@ -748,12 +737,12 @@ A Tabela~\ref{tab:momentos2610} e a Figura~\ref{fig:pulsos2610} apresentam os pu
 
 \begin{table}[H]
   \centering
-  \caption{Ensaio de 26/10/2026: linha de base $\kappa_0$, pico do excesso de condutividade $\Delta\kappa_{\max}$, área $M_0$ e desvio-padrão temporal $\sigma_t$ de cada pulso.}
+  \caption{Experimento de 26/10/2026: linha de base $\kappa_0$, pico do excesso de condutividade $\Delta\kappa_{\max}$, área $M_0$ e desvio-padrão temporal $\sigma_t$ de cada pulso.}
   \label{tab:momentos2610}
   \ajustatabela{%
   \begin{tabular}{cccccc}
     \toprule
-    Pulso & Sensor & $\kappa_0$ (\uScm) & $\Delta\kappa_{\max}$ (\uScm) & $M_0$ (\uScm\,s) & $\sigma_t$ (s) \\
+    Pulso & Sensor & $\kappa_0$ (\uScm) & $\Delta\kappa_{\max}$ (\uScm) & $M_0$ ($\mu$S\,s/cm) & $\sigma_t$ (s) \\
     \midrule
     1 & A & 160,6 & 30,3  & 177  & 2,3 \\
       & C & 141,3 & 10,0  & 82   & 4,5 \\
@@ -771,7 +760,7 @@ A Tabela~\ref{tab:momentos2610} e a Figura~\ref{fig:pulsos2610} apresentam os pu
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figuras/F13_exp2610_pulsos.pdf}
-  \caption{Pulsos do ensaio de 26/10/2026 nos sensores A, C e E, normalizados pela área, em função do tempo desde a injeção estimada.}
+  \caption{Pulsos do experimento de 26/10/2026 nos sensores A, C e E, normalizados pela área, em função do tempo desde a injeção estimada.}
   \label{fig:pulsos2610}
 \end{figure}
 
@@ -781,7 +770,7 @@ A Tabela~\ref{tab:dispersao2610} apresenta os resultados. No trecho A$\rightarro
 
 \begin{table}[H]
   \centering
-  \caption{Ensaio de 26/10/2026: velocidade média $U$ (cm/s) e coeficiente de dispersão $D_L$ (cm$^2$/s). No trecho C$\rightarrow$E, $U$ foi fixado em 4,1~cm/s. A faixa de $D_L$ corresponde à análise de sensibilidade.}
+  \caption{Experimento de 26/10/2026: velocidade média $U$ (cm/s) e coeficiente de dispersão $D_L$ (cm$^2$/s). No trecho C$\rightarrow$E, $U$ foi fixado em 4,1~cm/s. A faixa de $D_L$ corresponde à análise de sensibilidade.}
   \label{tab:dispersao2610}
   \setlength{\tabcolsep}{5pt}
   \ajustatabela{%
@@ -803,7 +792,7 @@ A Tabela~\ref{tab:dispersao2610} apresenta os resultados. No trecho A$\rightarro
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{figuras/F14_exp2610_routing_A_C.pdf}
-  \caption{Ajuste por \emph{routing} no trecho A$\rightarrow$C no ensaio de 26/10/2026: curva medida em A, curva medida em C e curva prevista em C. As curvas estão normalizadas pela área.}
+  \caption{Ajuste por \emph{routing} no trecho A$\rightarrow$C no experimento de 26/10/2026: curva medida em A, curva medida em C e curva prevista em C. As curvas estão normalizadas pela área.}
   \label{fig:routing2610}
 \end{figure}
 
@@ -811,13 +800,12 @@ No trecho C$\rightarrow$E, com $U$ fixo, o \emph{routing} resultou em $D_L$ de 8
 
 Com $U = 4{,}1$~cm/s, a vazão pela continuidade foi $Q = U B h = 1{,}15$~L/s, próxima da medida pelo Venturi em 09/11 (1,13 a 1,21~L/s). O raio hidráulico foi $R_h = 5{,}3$~cm e o número de Reynolds $Re = U R_h/\nu \approx 2{,}2\times10^{3}$, cerca de quatro vezes o valor estimado no quadro antes do ensaio ($\approx 500$). Pela Eq.~\eqref{eq:fischer_dl}, com $u_* = 0{,}26$~cm/s, o coeficiente de dispersão estimado é de 7,5~cm$^2$/s, próximo da média medida no trecho A$\rightarrow$C (8,6~cm$^2$/s). Como as sondas A e C estavam perto da superfície, onde o escoamento é mais rápido que a média da seção, a velocidade medida tende a superestimar a velocidade média.
 
-\paragraph{Balanço de massa}
+\subsubsection{Balanço de massa}
 Com as massas injetadas (0,072~g nas injeções 1 e 2 e 11~g na 3), a vazão por diluição, Eq.~\eqref{eq:diluicao}, foi de 0,9 a 1,5~L/s nos sensores A e E nas duas primeiras injeções, compatível com a vazão pela continuidade. O sensor C registrou áreas menores e resultou em 2,0 a 2,8~L/s. Na terceira injeção, os três sensores resultaram em 3,1 a 6,0~L/s, ou seja, registraram só 18 a 35\,\% do sal esperado: a razão entre as áreas da injeção 3 e das injeções 1 e 2 foi de 37 a 60, enquanto a razão entre as massas seria de 153. A explicação mais provável é a mesma de 09/11: a solução de 122~g/L é mais densa que a água e afundou, de modo que boa parte do sal passou abaixo das sondas, que estavam próximas à superfície ou a meia altura. Na solução de 0,8~g/L, praticamente com a mesma densidade da água, isso não ocorre.
 
-\paragraph{Outras observações}
-Cerca de 1,5~min depois do pulso 3, os três sensores registraram uma segunda elevação, mais larga e de menor amplitude (40 a 55~\uScm), seguida de um patamar 50 a 75~\uScm\ acima da linha de base inicial. O atraso dessa segunda elevação em relação ao pulso principal aumentou de A (93~s) para E (115~s), ou seja, ela se deslocou mais devagar que o pulso principal. Pode corresponder a sal retido em zonas de baixa velocidade perto do ponto de injeção ou junto ao fundo, ou ao início do retorno pela recirculação; ela não foi incluída nos momentos. A queda simultânea da linha de base de A e C às 16:40:18, sem passagem de sal, e as quedas de C durante a passagem do sal por A reforçam a interferência elétrica entre sondas no mesmo meio, já discutida para o ensaio de 09/11.
+Cerca de 1,5~min depois do pulso 3, os três sensores registraram ainda uma segunda elevação, mais larga e menor (40 a 55~\uScm), que se deslocou mais devagar que o pulso principal. Ela pode corresponder a sal retido junto ao fundo ou perto do ponto de injeção e não foi incluída nos momentos.
 
-\subsubsection{Limitações do ensaio de 26/10}
+\subsubsection{Limitações do experimento de 26/10}
 \begin{itemize}
   \item O horário absoluto não é confiável em nenhum dos três arquivos; os resultados usam só diferenças de tempo. Os métodos de um único ponto (tempo desde a injeção até cada sensor) não podem ser aplicados com segurança.
   \item O tempo de viagem até E não pôde ser medido: ele foi admitido a partir da velocidade de A$\rightarrow$C. Por isso, os resultados de C$\rightarrow$E dependem dessa hipótese, e não foi possível verificar se a velocidade variou ao longo do canal, como ocorreu nos ensaios 3 e 5 de 09/11.
@@ -826,13 +814,12 @@ Cerca de 1,5~min depois do pulso 3, os três sensores registraram uma segunda el
   \item As posições, a lâmina d'água e as concentrações foram tiradas da foto do quadro; a vazão não foi medida no dia.
 \end{itemize}
 
-Apesar dessas limitações, o ensaio de 26/10 forneceu valores de $U$ (4,1~cm/s) e $D_L$ (6 a 11~cm$^2$/s no trecho A$\rightarrow$C) da mesma ordem dos obtidos em 09/11 (3,2 a 7,1~cm/s e 9,5 a 20~cm$^2$/s), com outro modo de registro (cartão microSD) e outro arranjo de sondas. Ele também mostrou a importância de sincronizar os relógios dos sensores e de registrar o horário das injeções, o que motivou a repetição do ensaio com transmissão por Wi-Fi.
+Apesar dessas limitações, o experimento de 26/10 forneceu valores de $U$ (4,1~cm/s) e $D_L$ (6 a 11~cm$^2$/s no trecho A$\rightarrow$C) da mesma ordem dos obtidos em 09/11 (3,2 a 7,1~cm/s e 9,5 a 20~cm$^2$/s), com outro modo de registro (cartão microSD) e outro arranjo de sondas. Ele também mostrou a importância de sincronizar os relógios dos sensores e de registrar o horário das injeções, o que motivou a repetição do ensaio com transmissão por Wi-Fi.
 
 %------------------------------------------------------------------------------
 \subsection{Experimento de 09/11/2026: variação da inclinação do canal}
 \label{sec:res_exp0911}
 
-% [REORGANIZAÇÃO] Subseções que já estavam em Resultados e Discussões, agora um nível abaixo (texto sem alteração).
 
 %------------------------------------------------------------------------------
 \subsubsection{Qualidade do registro e período de referência}
@@ -860,8 +847,7 @@ O registro abrange o intervalo de 16:03:47 a 16:56:17, com cerca de 3,1 mil leit
   \end{tabular}}
 \end{table}
 
-% [REORGANIZAÇÃO] Única mudança dentro do texto: no parágrafo abaixo, \ref{sec:principio} virou \ref{sec:met_calibracao}, porque a calibração saiu de Princípio de funcionamento.
-Antes da primeira injeção, com os cinco sensores na mesma água, as médias variaram entre 167,3 e 183,5~\uScm{} (Figura~\ref{fig:referencia}). O sensor A registrou o menor valor, 3,5\,\% abaixo da média do conjunto, e o sensor C o maior, 5,8\,\% acima. O ruído foi baixo em todos os sensores, com desvio-padrão de 1,0 a 1,7~\uScm{} (0,6 a 1,0\,\% da média), e o sensor A situou-se no meio dessa faixa (0,86\,\%). Os sensores mostraram-se repetitivos, porém sem calibração entre si, já que a diferença entre eles (9\,\% da média) é cerca de dez vezes o ruído de cada um. Esse resultado era esperado, pois o código utiliza a curva do fabricante com a mesma constante ($K = 1$) em todas as sondas, e a curva de calibração em concentração (Seção~\ref{sec:met_calibracao}) não foi aplicada aos dados do ensaio. Por essa razão, foram adotados os fatores $f_i$ e curvas normalizadas. O ruído é inferior ao passo do conversor A/D do Wemos (3,1~mV, ou cerca de 2,7~\uScm{} nessa faixa) devido à média de 20 leituras realizada pelo código, Eq.~\eqref{eq:adc}.
+Antes da primeira injeção, com os cinco sensores na mesma água, as médias variaram entre 167,3 e 183,5~\uScm{} (Figura~\ref{fig:referencia}). O sensor A registrou o menor valor, 3,5\,\% abaixo da média do conjunto, e o sensor C o maior, 5,8\,\% acima. O ruído foi baixo em todos os sensores, com desvio-padrão de 1,0 a 1,7~\uScm{} (0,6 a 1,0\,\% da média), e o sensor A ficou no meio dessa faixa (0,86\,\%). Os sensores mostraram-se repetitivos, porém sem calibração entre si, já que a diferença entre eles (9\,\% da média) é cerca de dez vezes o ruído de cada um. Esse resultado era esperado, pois o código utiliza a curva do fabricante com a mesma constante ($K = 1$) em todas as sondas, e a curva de calibração em concentração (Seção~\ref{sec:met_calibracao}) não foi aplicada aos dados do ensaio. Por essa razão, foram adotados os fatores $f_i$ e curvas normalizadas. O ruído é inferior ao passo do conversor A/D do Wemos (3,1~mV, ou cerca de 2,7~\uScm{} nessa faixa) devido à média de 20 leituras realizada pelo código, Eq.~\eqref{eq:adc}.
 
 \begin{figure}[H]
   \centering
@@ -892,9 +878,9 @@ No registro completo (Figura~\ref{fig:serie}), cada injeção aparece como um pi
   \label{fig:serie}
 \end{figure}
 
-Na janela de cada ensaio, a linha de base do sensor A aumentou de 55 a 73~\uScm{} por injeção, com média de 64~\uScm. Nos sensores B, D e E, o aumento foi semelhante (63, 68 e 61~\uScm{} em média), enquanto no sensor C chegou a 91~\uScm. Isso indica que a sonda C difere das demais também na sensibilidade, além do deslocamento observado no período de referência. Considerando o fator de 0,5 entre sólidos dissolvidos e condutividade, 64~\uScm{} equivalem a cerca de 32~mg/L; para 16~g de sal por injeção, esse aumento corresponde a um volume de água em circulação da ordem de 500~L.
+Na janela de cada ensaio, a linha de base do sensor A aumentou de 55 a 73~\uScm{} por injeção, com média de 64~\uScm. Nos sensores B, D e E, o aumento foi semelhante (63, 68 e 61~\uScm{} em média), enquanto no sensor C chegou a 91~\uScm. Isso indica que a sonda C difere das demais também na sensibilidade, além do deslocamento observado no período de referência. Com a calibração da sonda A ($k = 0{,}31$~mg/L por \uScm), 64~\uScm{} equivalem a cerca de 20~mg/L de NaCl; para 16~g de sal por injeção, esse aumento corresponde a um volume de água em circulação da ordem de 800~L.
 
-Dois trechos do registro não correspondem à passagem do traçador. Entre 16:24 e 16:26, a leitura do sensor A caiu de 271 para 253~\uScm{} enquanto os demais sensores permaneceram estáveis e, às 16:26:40, saltou para 309~\uScm, voltando a concordar com eles, provavelmente em razão do manuseio da sonda. Entre 16:32 e 16:39, no intervalo entre os ensaios 3 e 4, quando a inclinação passou de 2° para 2,5°, as leituras dos cinco sensores aumentaram em degraus, em instantes diferentes para cada um (A e C às 16:32, B às 16:35, E às 16:37, C e D às 16:38), sem injeção registrada. Esses degraus provavelmente resultaram dos ajustes feitos no canal e nas sondas durante a mudança de inclinação.
+Dois trechos do registro não correspondem à passagem do traçador. Entre 16:24 e 16:27, a leitura do sensor A caiu cerca de 20~\uScm{} e depois voltou a concordar com as demais, provavelmente pelo manuseio da sonda. Entre 16:32 e 16:39, durante a mudança de inclinação entre os ensaios 3 e 4, as leituras dos cinco sensores subiram em degraus, em instantes diferentes para cada um e sem injeção, o que indica ajustes no canal e nas sondas.
 
 A partir desse segundo trecho, a discordância entre os sensores aumentou consideravelmente. A diferença entre a maior e a menor linha de base, de 9 a 14\,\% da média nos ensaios 1 a 3, passou a 35 a 40\,\% nos ensaios 4 e 5. A comparação de valores absolutos entre sensores é, portanto, menos confiável nos dois últimos ensaios, o que não afeta as grandezas calculadas a partir de curvas normalizadas.
 
@@ -942,9 +928,9 @@ O pulso alargou-se ao longo do canal: o desvio-padrão temporal variou de 2,0 a 
 
 A comparação entre A e B, situados na mesma seção e com sensibilidades semelhantes, evidencia que o sal não estava misturado na vertical. Nos ensaios 1, 2, 3 e 5, a área do pulso em B, a 6,5~cm do fundo, foi de 2,4 a 6,1 vezes a área em A, próximo à superfície. A solução injetada, com 128~kg/m$^3$ de NaCl, é cerca de 8\,\% mais densa que a água e tende a afundar logo após o lançamento. No ensaio 5, o pico em C foi quase o dobro do pico em A, diferença maior do que a explicada pela diferença de sensibilidade entre as duas sondas, o que indica que o sensor A registrou apenas parte da nuvem.
 
-O ensaio 4 constituiu exceção: A e B registraram pulsos praticamente iguais, com picos de 1740 e 1682~\uScm{} e razão entre áreas de 1,0. O nível d'água anotado nesse ensaio (12~cm) é inferior à altura nominal do sensor A (18~cm), o que indica que a sonda foi reposicionada e pode ter ficado a uma profundidade próxima à do sensor B.
+O ensaio 4 foi diferente: A e B registraram pulsos praticamente iguais, com picos de 1740 e 1682~\uScm{} e razão entre áreas de 1,0. O nível d'água anotado nesse ensaio (12~cm) é inferior à altura nominal do sensor A (18~cm), o que indica que a sonda foi reposicionada e pode ter ficado a uma profundidade próxima à do sensor B.
 
-Ainda no ensaio 4, o sensor A registrou duas leituras consecutivas de 2,30~V (16:42:02 e 16:42:03), valor que corresponde ao limite de saída do sensor TDS. Como a entrada A0 do Wemos admite até 3,2~V, a saturação ocorreu no sensor, e não no conversor A/D. O pico real foi, portanto, superior aos 2826~\uScm{} registrados, e o pulso desse ensaio está truncado no topo. As seis leituras acima de 2000~\uScm, três em A e três em B, também excedem a faixa nominal do sensor (Seção~\ref{sec:principio}). A calibração da sonda (Figura~\ref{fig:calibracao}) foi ajustada até cerca de 2200~\uScm{} (0,6~g/L em excesso); a leitura de 0,8~g/L, próxima de 2500~\uScm, já excedeu a faixa nominal. Essa faixa inclui todos os pulsos registrados pelo sensor A, exceto o pico do ensaio 4.
+Ainda no ensaio 4, o sensor A registrou duas leituras consecutivas de 2,30~V (16:42:02 e 16:42:03), valor que corresponde ao limite de saída do sensor TDS. Como a entrada A0 do Wemos admite até 3,2~V, a saturação ocorreu no sensor, e não no conversor A/D. O pico real foi, portanto, superior aos 2826~\uScm{} registrados, e o pulso desse ensaio está truncado no topo. As seis leituras acima de 2000~\uScm, três em A e três em B, também excedem a faixa nominal do sensor (Seção~\ref{sec:principio}). A calibração da sonda (Figura~\ref{fig:calibracao}) foi ajustada até cerca de 2200~\uScm{} (0,6~g/L em excesso); a leitura de 0,8~g/L (2437~\uScm) já excedeu a faixa nominal. Essa faixa inclui todos os pulsos registrados pelo sensor A, exceto o pico do ensaio 4.
 
 %------------------------------------------------------------------------------
 \subsubsection{Velocidade média e coeficiente de dispersão}
@@ -993,9 +979,9 @@ O trecho B$\rightarrow$D apresentou velocidades 12 a 66\,\% maiores que as do tr
 
 O coeficiente $D_L$ não apresentou relação com a inclinação (Figura~\ref{fig:dl_inclinacao}). Segundo a relação $D_L \propto S_0^{1/2}$, o coeficiente aumentaria 41\,\% do ensaio 2 (1°) para o 3 (2°) e 58\,\% do ensaio 2 para o 4 (2,5°). No trecho A$\rightarrow$C, os valores obtidos nesses três ensaios foram 9,5, 12,0 e 20,0~cm$^2$/s; entretanto, o ensaio 5 (2,3°) resultou em 9,7~cm$^2$/s e o ensaio 1, com o canal na horizontal, em 16,8~cm$^2$/s, sem tendência definida.
 
-A explicação mais provável é que o escoamento estava distante do regime uniforme para o qual essa relação foi deduzida. Para os níveis d'água anotados, de 21~cm no ensaio 2 e 12~cm no ensaio 4, a fórmula de Manning resultaria em velocidades de 1,9 e 2,7~m/s (com $n = 0{,}010$, valor típico de canal liso), enquanto as velocidades medidas foram de 4 a 9~cm/s, cerca de 2 a 4\,\% desses valores. O escoamento era lento e profundo, com nível controlado a jusante, e a declividade da linha de energia era muito menor que a do fundo. Nessas condições, a velocidade depende sobretudo da vazão e da lâmina d'água. A leitura do manômetro reforça essa interpretação: $\Delta h$ foi de 22,0~cm nos ensaios 2, 3 e 4 e de 24,5 e 25,3~cm nos ensaios 1 e 5 (Tabela~\ref{tab:ensaios}). Admitindo vazão proporcional a $\sqrt{\Delta h}$, como em medidores de orifício e Venturi, a vazão dos ensaios 1 e 5 foi apenas 5 a 7\,\% maior que a dos demais, ou seja, praticamente constante ao longo do experimento. Os ensaios 2 e 4 tiveram o mesmo $\Delta h$, e o produto da velocidade pela área molhada resulta em vazões semelhantes nesses dois ensaios, de 1,2 a 1,7~L/s; a maior velocidade do ensaio 4 é, portanto, explicada pela menor lâmina d'água. Esse resultado é coerente com a condição de que a expressão de Fischer~\cite{fischer1975}, combinada com a fórmula de Manning, só leva a $D_L \propto S_0^{1/2}$ para escoamento uniforme e geometria fixa; com vazão imposta, a profundidade e a velocidade variam com a inclinação e precisam ser medidas em cada ensaio.
+A explicação mais provável é que o escoamento estava longe do regime uniforme para o qual essa relação foi deduzida. Para os níveis d'água anotados, a fórmula de Manning (com $n = 0{,}010$, canal liso) resultaria em velocidades de 1,9 a 2,7~m/s, enquanto as medidas foram de 4 a 9~cm/s. O escoamento era lento e profundo, com nível controlado a jusante, e a velocidade dependeu sobretudo da vazão e da lâmina d'água. A vazão foi praticamente constante: $\Delta h$ foi de 22,0~cm nos ensaios 2, 3 e 4 e de 24,5 e 25,3~cm nos ensaios 1 e 5 (Tabela~\ref{tab:ensaios}), uma diferença de apenas 5 a 7\,\% na vazão. A maior velocidade do ensaio 4 é explicada pela menor lâmina d'água (12~cm). Com vazão imposta, a profundidade e a velocidade variam com a inclinação e precisam ser medidas em cada ensaio.
 
-A Tabela~\ref{tab:continuidade} compara a velocidade medida pelos sensores com a obtida pela vazão do Venturi e o coeficiente de dispersão medido com a estimativa da Eq.~\eqref{eq:fischer_dl}. A velocidade entre as seções concordou com a da continuidade, com diferenças de 3 a 12\,\% nos ensaios 1, 2, 4 e 5. No ensaio~3, o nível anotado variou de 18,7 a 23,5~cm entre as seções, e a velocidade medida (3,2~cm/s) ficou próxima do valor correspondente ao maior nível. Essa concordância, obtida com instrumentos independentes, confirma que o sistema de sensores mediu corretamente o tempo de trânsito do traçador.
+A Tabela~\ref{tab:continuidade} compara a velocidade medida pelos sensores com a obtida pela vazão do Venturi e o coeficiente de dispersão medido com a estimativa da Eq.~\eqref{eq:fischer_dl}. A velocidade entre as seções concordou com a da continuidade, com diferenças de 3 a 12\,\% nos ensaios 1, 2, 4 e 5. No ensaio~3, o nível anotado variou de 18,7 a 23,5~cm entre as seções, e a velocidade medida (3,2~cm/s) ficou próxima do valor correspondente ao maior nível. Como os dois instrumentos são independentes, essa concordância indica que os sensores mediram bem o tempo de trânsito do traçador.
 
 \begin{table}[H]
   \centering
@@ -1087,38 +1073,9 @@ A Tabela~\ref{tab:analyzer} e a Figura~\ref{fig:analyzer} comparam, no trecho A$
   \label{fig:analyzer}
 \end{figure}
 
-A propagação por formas do pacote, procedimento mais próximo do \emph{routing} adotado neste trabalho, resultou em valores entre 16\,\% abaixo e 10\,\% acima do resultado principal. O $D_L$ de Fischer calculado pelo pacote ficou entre 6\,\% abaixo e 8\,\% acima do $D_L$ por momentos, exceto no ensaio~1 (36\,\% acima), em que o pacote encerra o pulso do sensor A no mínimo entre os dois picos, sem suavização, e exclui o segundo pico. As velocidades do pacote, calculadas pela diferença entre os centroides, ficaram 3 a 26\,\% abaixo das obtidas pelo \emph{routing}, no qual a velocidade também é ajustada.
+A propagação por formas, procedimento mais próximo do \emph{routing}, resultou em valores entre 16\,\% abaixo e 10\,\% acima do resultado principal, e o $D_L$ de Fischer do pacote ficou a menos de 8\,\% do $D_L$ por momentos, exceto no ensaio~1, em que o pacote excluiu o segundo pico do sensor A. A propagação padrão afastou-se dos demais resultados (2,1 a 39,2~cm$^2$/s), porque compara as concentrações e as áreas medidas em A e C diferiram em até 2,2 vezes; sem conservação de massa, o ajuste altera a largura da curva para compensar a amplitude. O teste de mistura confirmou o que foi visto na Seção~\ref{sec:res_pulsos}: o coeficiente de variação entre as áreas de A e B foi de 60 a 101\,\% nos ensaios 1, 2, 3 e 5 (4\,\% no ensaio 4) e, entre C e D, de 18 a 41\,\%, ou seja, a mistura não foi completa em nenhum ensaio. No trecho C$\rightarrow$E, o pacote confirmou os resultados dos ensaios 1, 2 e 4.
 
-A propagação padrão do pacote afastou-se dos demais resultados (de 2,1 a 39,2~cm$^2$/s) e apresentou, em geral, os piores ajustes. Nessa opção, a curva de C é comparada em concentração, o que inclui a amplitude das curvas, mas as áreas medidas em A e C diferiram em até 2,2 vezes. Sem conservação de massa entre as sondas, o ajuste compensa a diferença de amplitude alterando a largura da curva, e $D_L$ perde o significado físico. O próprio pacote emitiu esse alerta em quatro dos cinco ensaios: a área $\int C\,\mathrm{d}t$ variou de $-34$ a $+124\,\%$ entre as duas seções no trecho A$\rightarrow$C.
-
-O teste de mistura do pacote confirma o comportamento descrito na Seção~\ref{sec:res_pulsos}. Na seção~1, o coeficiente de variação entre as áreas de A e B foi de 60 a 101\,\% nos ensaios 1, 2, 3 e 5, muito acima do limite de 10\,\% para mistura completa, e de 4\,\% no ensaio 4. Na seção~2, entre C e D, variou de 18 a 41\,\%. Pelo critério do pacote, em nenhum ensaio as duas seções apresentaram mistura completa, o que restringe a validade de todos os métodos baseados na Eq.~\eqref{eq:ade}.
-
-No trecho C$\rightarrow$E, o pacote confirmou os resultados dos ensaios 1, 2 e 4: o $D_L$ de Fischer foi de 29,6, 13,3 e 31,9~cm$^2$/s, e a propagação por formas resultou em 21,5, 10,4 e 26,6~cm$^2$/s, próximos dos valores do \emph{routing} (23,1, 10,3 e 27,4~cm$^2$/s). Nos ensaios 3 e 5, o pacote também produziu valores sem significado físico.
-
-\paragraph{Métodos de um ponto}
-Os instantes de injeção estimados pela Eq.~\eqref{eq:t0} ficaram de 6 a 50~s após o minuto anotado (Tabela~\ref{tab:umponto}), sempre dentro do minuto registrado na planilha, como esperado para horários anotados sem os segundos. Ao se adotar o horário anotado como hh:mm:00, o tempo de viagem é superestimado em até 50~s e os métodos de um ponto deixam de ter sentido físico: no sensor A, o ajuste da solução analítica resultou em velocidades de 1,3 a 3,2~cm/s, inferiores às obtidas entre seções, e em coeficientes de dispersão de 0,03 a 2,8~cm$^2$/s.
-
-\begin{table}[H]
-  \centering
-  \caption{Ajuste da solução analítica, Eq.~\eqref{eq:gauss}, nos sensores A, C e E pelo \emph{Dispersion Analyzer}, com o instante de injeção estimado pela Eq.~\eqref{eq:t0}. $t_0$: segundos após o minuto anotado; $U$ em cm/s e $D_L$ em cm$^2$/s; NSE: coeficiente de Nash-Sutcliffe do ajuste.}
-  \label{tab:umponto}
-  \ajustatabela{%
-  \begin{tabular}{ccccccccccc}
-    \toprule
-    & & \multicolumn{3}{c}{Sensor A} & \multicolumn{3}{c}{Sensor C} & \multicolumn{3}{c}{Sensor E} \\
-    \cmidrule(lr){3-5}\cmidrule(lr){6-8}\cmidrule(lr){9-11}
-    Ensaio & $t_0$ (s) & $U$ & $D_L$ & NSE & $U$ & $D_L$ & NSE & $U$ & $D_L$ & NSE \\
-    \midrule
-    1 & 6  & 4,0 & 5,8  & 0,92 & 3,6 & 16,2 & 0,86 & 3,6 & 18,6 & 0,93 \\
-    2 & 44 & 3,9 & 17,9 & 0,63 & 3,8 & 13,8 & 0,89 & 3,7 & 12,5 & 0,97 \\
-    3 & 9  & 2,7 & 1,3  & 0,74 & 2,8 & 3,7  & 0,94 & 3,3 & 14,1 & 0,91 \\
-    4 & 50 & 7,0 & 4,1  & 0,98 & 7,0 & 10,9 & 0,91 & 7,1 & 16,7 & 0,94 \\
-    5 & 37 & 4,1 & 14,2 & 0,69 & 4,2 & 9,4  & 0,92 & 5,5 & 37,1 & 0,57 \\
-    \bottomrule
-  \end{tabular}}
-\end{table}
-
-Com o instante estimado, as velocidades de um ponto nos sensores A e C concordam com as obtidas entre seções, o que era esperado, uma vez que o instante foi calculado a partir delas. No sensor C, o coeficiente de dispersão ficou entre 9,4 e 16,2~cm$^2$/s, próximo dos valores entre seções, exceto no ensaio~3 (3,7~cm$^2$/s). No sensor A, variou entre 1,3 e 17,9~cm$^2$/s e, em três ensaios, ficou bem abaixo do valor em C. Esse resultado indica que, a 91~cm do lançamento, o sal ainda não havia se espalhado conforme prevê a Eq.~\eqref{eq:ade}, o que é coerente com a mistura incompleta. O sensor E não entra no cálculo do instante e, por isso, serve como verificação independente: nos ensaios 1 a 4, a velocidade em E (3,3 a 7,1~cm/s) concordou com a do trecho A$\rightarrow$C, o que confirma tanto o instante estimado quanto a distância de 233~cm, e o coeficiente de dispersão ficou entre 12,5 e 18,6~cm$^2$/s. No ensaio 5, o ajuste em E foi pior (NSE de 0,57) e resultou em 37,1~cm$^2$/s. Os resultados de um ponto também são muito sensíveis ao instante adotado: o sal leva de 13 a 35~s para chegar ao sensor A, e uma diferença de 10~s no instante altera a velocidade em A em 22 a 75\,\% nos ensaios 1, 2, 3 e 5 e em até quatro vezes no ensaio 4. Além disso, as estimativas do instante pelos pares A$\rightarrow$C e B$\rightarrow$D diferiram entre 6 e 16~s. Por esses motivos, os métodos de um ponto foram utilizados apenas como verificação, e os resultados principais são os obtidos entre seções.
+Os métodos de um único ponto não deram resultados confiáveis. Com o horário anotado (hh:mm:00), o tempo de viagem fica superestimado em até 50~s, e o ajuste da Eq.~\eqref{eq:gauss} no sensor A resultou em velocidades de 1,3 a 3,2~cm/s e coeficientes de 0,03 a 2,8~cm$^2$/s. Com o instante estimado pela Eq.~\eqref{eq:t0}, que fica de 6 a 50~s depois do minuto anotado, as velocidades de um ponto concordaram com as obtidas entre seções, inclusive no sensor E, que não entra no cálculo do instante; mas o resultado é muito sensível a esse instante (10~s de diferença alteram a velocidade em A em 22 a 75\,\%). Por isso, esses métodos foram usados apenas como verificação.
 
 %------------------------------------------------------------------------------
 \subsubsection{Limitações}
@@ -1140,20 +1097,16 @@ Por fim, o horário da injeção foi anotado apenas até o minuto, o que impede 
 \subsubsection{Aplicações e extensões do sensor}
 \label{sec:res_aplicacoes}
 
-Apesar dessas limitações, o protótipo registrou com clareza a passagem dos cinco pulsos, com ruído próximo de 1\,\% e poucas falhas. O equipamento pode ser empregado em ensaios com traçador salino em canais e pequenos cursos d'água, para determinação do tempo de trânsito, da velocidade média e do coeficiente de dispersão, e no monitoramento contínuo de condutividade e temperatura, por exemplo na detecção de lançamentos de efluentes, de intrusão salina ou de alterações na qualidade da água de mananciais. Com a curva de calibração em concentração, o sensor também permite medir a vazão pelo método de diluição, com injeção instantânea de uma massa $M$ de sal:
-\begin{equation}
-  Q = \frac{M}{\displaystyle\int \bigl[C(t) - C_0\bigr]\,\mathrm{d}t}.
-  \label{eq:diluicao}
-\end{equation}
+Apesar dessas limitações, o protótipo registrou com clareza a passagem dos cinco pulsos, com ruído próximo de 1\,\% e poucas falhas. O equipamento pode ser empregado em ensaios com traçador salino em canais e pequenos cursos d'água, para determinação do tempo de trânsito, da velocidade média e do coeficiente de dispersão, e no monitoramento contínuo de condutividade e temperatura, por exemplo na detecção de lançamentos de efluentes, de intrusão salina ou de alterações na qualidade da água de mananciais. Com a curva de calibração em concentração, o sensor também permite medir a vazão pelo método de diluição, Eq.~\eqref{eq:diluicao}, como foi feito no experimento de 26/10.
 
-Os resultados poderiam ser aprimorados com as seguintes alterações:
+Os dois experimentos no canal indicaram as seguintes melhorias:
 \begin{itemize}
   \item aplicação da curva de calibração de cada sonda aos dados do ensaio, para trabalhar com concentração em vez de condutividade e verificar a conservação de massa;
   \item leitura da temperatura com menor frequência, já que ela varia lentamente e a leitura do DS18B20 leva cerca de 0,75~s, de modo a aumentar a taxa de amostragem da condutividade;
   \item gravação das leituras também no cartão microSD durante o ensaio, como cópia de segurança dos dados enviados por Wi-Fi, e registro dos instantes em que a saída do sensor atinge o limite de 2,3~V;
   \item isolamento elétrico das sondas ou alternância das leituras entre elas, para eliminar a interferência;
   \item instalação de sondas em mais de uma altura por seção e afastamento das seções de medição em relação ao ponto de injeção, para que o traçador já esteja misturado;
-  \item registro do instante da injeção com precisão de segundos, sincronizado com o relógio dos sensores;
+  \item registro do instante da injeção com precisão de segundos e relógio comum a todos os sensores, acertado pela rede, para evitar o problema de data e hora de 26/10;
   \item redução da massa de sal ou maior diluição da solução, para evitar a saturação do sensor e os efeitos de densidade;
   \item medição da lâmina d'água em todas as seções de cada ensaio e determinação do coeficiente de descarga do Venturi, para reduzir a incerteza da comparação com as estimativas teóricas.
 \end{itemize}
@@ -1162,7 +1115,7 @@ Os resultados poderiam ser aprimorados com as seguintes alterações:
 \section{Comparação entre os resultados}
 \label{sec:comparacao}
 
-A Tabela~\ref{tab:comparacao} reúne o desempenho do sensor A e os principais resultados nas três etapas do trabalho: a calibração em laboratório (05/10), o ensaio de 26/10, com gravação no cartão microSD, e o ensaio de 09/11, com envio por Wi-Fi.
+A Tabela~\ref{tab:comparacao} reúne o desempenho do sensor A e os principais resultados nas três etapas do trabalho: a calibração em laboratório (05/10), o experimento de 26/10, com gravação no cartão microSD, e o experimento de 09/11, com envio por Wi-Fi.
 
 \begin{table}[H]
   \centering
@@ -1171,7 +1124,7 @@ A Tabela~\ref{tab:comparacao} reúne o desempenho do sensor A e os principais re
   \ajustatabela{%
   \begin{tabular}{llll}
     \toprule
-    & Calibração (05/10) & Ensaio de 26/10 & Ensaio de 09/11 \\
+    & Calibração (05/10) & Experimento de 26/10 & Experimento de 09/11 \\
     \midrule
     Registro & microSD & microSD & Wi-Fi \\
     Intervalo entre leituras & 1,2~s & 1,25~s & 1~s \\
@@ -1188,21 +1141,21 @@ A Tabela~\ref{tab:comparacao} reúne o desempenho do sensor A e os principais re
   \end{tabular}}
 \end{table}
 
-\paragraph{Desempenho do sensor}
-O ruído do sensor A foi de cerca de 1~\uScm, menos de 1\,\% da leitura, nos dois ensaios no canal, com gravação no cartão ou com envio por Wi-Fi. Na calibração, o desvio-padrão das leituras foi maior (3,0~\uScm{} na água sem sal e até 40~\uScm{} nos degraus de 0,2 a 0,4~g/L), o que reflete a mistura ainda incompleta do sal no recipiente, e não o ruído eletrônico. A faixa de validade da calibração, até cerca de 2200~\uScm, cobriu todo o ensaio de 26/10 e todos os pulsos de 09/11, exceto o pico do ensaio 4, que saturou o sensor. A saturação aparece, portanto, nas duas etapas em que a condutividade passou de cerca de 2200~\uScm: no degrau de 0,8~g/L da calibração e no ensaio 4.
+\subsection{Desempenho do sensor}
+O ruído do sensor A foi de cerca de 1~\uScm, menos de 1\,\% da leitura, nos dois experimentos no canal, com gravação no cartão ou com envio por Wi-Fi. Na calibração, o desvio-padrão das leituras foi maior (3,0~\uScm{} na água sem sal e até 40~\uScm{} nos degraus de 0,2 a 0,4~g/L), provavelmente porque o sal ainda não estava todo misturado no recipiente. A faixa de validade da calibração, até cerca de 2200~\uScm, cobriu todo o experimento de 26/10 e todos os pulsos de 09/11, exceto o pico do ensaio 4, que saturou o sensor. 
 
-Os dois modos de registro falharam de maneiras diferentes. Em 26/10, o cartão registrou todas as leituras, sem lacunas, mas a data e a hora do RTC estavam erradas, e os relógios de cada placa não tinham referência comum; foi preciso reconstruir a sincronização pelos próprios sinais (Seção~\ref{sec:res_exp2610}). Em 09/11, os horários vieram do servidor e eram comuns a todas as placas, mas a perda de pacotes no Wi-Fi gerou lacunas de até 20~s. Os dois problemas se complementam: gravar no cartão e enviar por Wi-Fi ao mesmo tempo, com o relógio acertado pela rede, teria evitado os dois.
+Os dois modos de registro falharam de maneiras diferentes. Em 26/10, o cartão registrou todas as leituras, sem lacunas, mas a data e a hora do RTC estavam erradas, e os relógios de cada placa não tinham referência comum; foi preciso reconstruir a sincronização pelos próprios sinais (Seção~\ref{sec:res_exp2610}). Em 09/11, os horários eram comuns a todas as placas, mas a perda de pacotes no Wi-Fi gerou lacunas de até 20~s. Os dois problemas se complementam: gravar no cartão e enviar por Wi-Fi ao mesmo tempo, com o relógio acertado pela rede, teria evitado os dois.
 
-\paragraph{Velocidade e coeficiente de dispersão}
-Os valores de $U$ e $D_L$ dos dois ensaios são da mesma ordem de grandeza. O caso mais comparável é o ensaio 2 de 09/11, com lâmina de 21~cm, próxima dos 19,5~cm de 26/10: nele, $U = 3{,}9$~cm/s e $D_L = 9{,}5$~cm$^2$/s, contra $U = 4{,}1$~cm/s e $D_L = 8{,}6$~cm$^2$/s (média dos três pulsos) em 26/10. A vazão estimada pela continuidade em 26/10 (1,15~L/s) também é próxima da medida pelo Venturi em 09/11 (1,13 a 1,21~L/s). Em 26/10, os três pulsos deram velocidades quase iguais (4,0 a 4,2~cm/s), o que indica que a vazão foi constante; em 09/11, $U$ e $D_L$ variaram mais, porque a inclinação, a lâmina e a posição das sondas mudaram entre os ensaios. Nos dois casos, a expressão de Fischer, Eq.~\eqref{eq:fischer_dl}, reproduziu a ordem de grandeza de $D_L$.
+\subsection{Velocidade e coeficiente de dispersão}
+Os valores de $U$ e $D_L$ dos dois experimentos são da mesma ordem de grandeza. O caso mais comparável é o ensaio 2 de 09/11, com lâmina de 21~cm, próxima dos 19,5~cm de 26/10: nele, $U = 3{,}9$~cm/s e $D_L = 9{,}5$~cm$^2$/s, contra $U = 4{,}1$~cm/s e $D_L = 8{,}6$~cm$^2$/s (média dos três pulsos) em 26/10. A vazão estimada pela continuidade em 26/10 (1,15~L/s) também é próxima da medida pelo Venturi em 09/11 (1,13 a 1,21~L/s). Em 26/10, os três pulsos deram velocidades quase iguais (4,0 a 4,2~cm/s), o que indica que a vazão foi constante; em 09/11, $U$ e $D_L$ variaram mais, porque a inclinação, a lâmina e a posição das sondas mudaram entre os ensaios. Nos dois casos, a expressão de Fischer, Eq.~\eqref{eq:fischer_dl}, reproduziu a ordem de grandeza de $D_L$.
 
 A distância entre o lançamento e a primeira seção foi diferente: 0,60~m em 26/10 e 0,91~m em 09/11. Como o coeficiente aparente tende a crescer enquanto o traçador ainda se mistura na seção (Seção~\ref{sec:res_jusante}), os valores um pouco menores de 26/10 são coerentes com seções mais próximas do lançamento.
 
-\paragraph{Mistura do traçador}
-Os dois ensaios mostram o mesmo efeito da densidade da solução injetada. Em 09/11 (128~kg/m$^3$), a área do pulso junto ao fundo (sensor B) foi de 2,4 a 6,1 vezes a área perto da superfície (sensor A). Em 26/10, a injeção de 122~kg/m$^3$ registrou apenas 18 a 35\,\% do sal esperado nas sondas próximas à superfície e a meia altura, enquanto as injeções de 0,8~g/L, com densidade praticamente igual à da água, resultaram em vazões por diluição compatíveis com a continuidade. A comparação indica que soluções diluídas misturam-se melhor na seção e dão resultados mais representativos com sondas pontuais, desde que o sinal fique bem acima do ruído: em 26/10, 0,07~g de sal já produziram picos de 10 a 30~\uScm, de 10 a 40 vezes o ruído.
+\subsection{Mistura do traçador}
+Os dois experimentos mostram o mesmo efeito da densidade da solução injetada. Em 09/11 (128~kg/m$^3$), a área do pulso junto ao fundo (sensor B) foi de 2,4 a 6,1 vezes a área perto da superfície (sensor A). Em 26/10, a injeção de 122~kg/m$^3$ registrou apenas 18 a 35\,\% do sal esperado nas sondas próximas à superfície e a meia altura, enquanto as injeções de 0,8~g/L, com densidade praticamente igual à da água, resultaram em vazões por diluição compatíveis com a continuidade. A comparação indica que soluções diluídas misturam-se melhor na seção e dão resultados mais representativos com sondas pontuais, desde que o sinal fique bem acima do ruído: em 26/10, 0,07~g de sal já produziram picos de 10 a 30~\uScm, de 10 a 40 vezes o ruído.
 
-\paragraph{Interferência entre sondas}
-A interferência elétrica entre sondas apareceu nos dois ensaios: em 09/11, como uma queda na leitura de E durante a passagem do sal pelas sondas a montante; em 26/10, como uma queda na leitura de C durante a passagem do sal por A, e como um degrau simultâneo na linha de base de A e C às 16:40:18. É, portanto, uma característica do conjunto de sondas no mesmo meio, e não de um ensaio específico. Em 26/10, essa interferência teve um uso inesperado: como é instantânea, permitiu verificar a sincronização entre os relógios de A e C.
+\subsection{Interferência entre sondas}
+A interferência elétrica entre sondas apareceu nos dois experimentos: em 09/11, como uma queda na leitura de E durante a passagem do sal pelas sondas a montante; em 26/10, como uma queda na leitura de C durante a passagem do sal por A, e como um degrau simultâneo na linha de base de A e C às 16:40:18. É, portanto, uma característica do conjunto de sondas no mesmo meio, e não de um ensaio específico. Em 26/10, essa interferência teve um uso inesperado: como é instantânea, permitiu verificar a sincronização entre os relógios de A e C.
 
 % ============================================================
 \section{Visão ambiental}
@@ -1210,31 +1163,31 @@ A interferência elétrica entre sondas apareceu nos dois ensaios: em 09/11, com
 
 Os ensaios no canal reproduzem, em pequena escala, a situação descrita na Introdução: uma massa de contaminante lançada de uma vez, que se desloca com o escoamento e se espalha enquanto passa por pontos de monitoramento a jusante. As três informações necessárias para a resposta a um acidente (o tempo de chegada, o tempo de passagem e a concentração máxima) foram obtidas diretamente das curvas registradas pelos sensores.
 
-\paragraph{Chegada, passagem e diluição da mancha}
+\subsection{Chegada, passagem e diluição da mancha}
 No pulso 3 de 26/10, o centroide da nuvem de sal passou pelo sensor A, a 0,60~m do lançamento, cerca de 15~s depois da injeção, e pelo sensor E, a 2,22~m, cerca de 55~s depois (tempo estimado com a velocidade entre A e C). Nesse percurso, o desvio-padrão temporal da nuvem passou de 5~s em A para 10~s em E: a mancha levou o dobro do tempo para passar, e o pico da curva normalizada pela área caiu cerca de 35\,\% (Figura~\ref{fig:pulsos2610}). Esse é o comportamento previsto pela Eq.~\eqref{eq:gauss}, em que o pico diminui com $1/\sqrt{t}$ e a duração cresce com $\sqrt{t}$. Em um rio, conhecer $U$ permite prever quando a mancha chega a uma captação, e $D_L$ permite prever por quanto tempo ela passa e qual a concentração máxima, de modo a decidir quando suspender e quando retomar a captação. Os ensaios também mostraram que esses valores só são representativos depois que o contaminante se mistura na seção: perto do lançamento, a mancha se divide em camadas, como ocorreu com a salmoura que afundou, e um único sensor pode registrar só uma parte dela.
 
-\paragraph{Sal como contaminante}
-O próprio NaCl é um contaminante relevante. O cloreto é um dos parâmetros da Resolução CONAMA nº~357/2005, com limite de 250~mg/L de cloreto total para as águas doces das classes 1 a 3, que incluem as destinadas ao abastecimento. O sal chega aos rios por efluentes industriais e domésticos, por salmouras de processos industriais e pelo escoamento de áreas agrícolas, e um lançamento concentrado se comporta como os pulsos destes ensaios. Com a calibração da sonda A ($k = 0{,}31$~mg/L por \uScm) e a fração de cloreto no NaCl (60,7\,\% em massa), o maior pico registrado pelo sensor A em 09/11 (cerca de 1740~\uScm{} acima da linha de base, no ensaio 4) corresponde a pelo menos 0,54~g/L de NaCl, ou 330~mg/L de cloreto, acima do limite da resolução (o sensor saturou nesse pico, e a concentração real foi maior). Mesmo em um canal de laboratório, portanto, 16~g de sal produziram por alguns segundos uma concentração que, em um rio, desenquadraria a água. Logo depois, a dispersão e a diluição reduziram a concentração: o aumento acumulado da linha de base, de cerca de 64~\uScm{} por injeção, corresponde a cerca de 20~mg/L de NaCl, ou 12~mg/L de cloreto, bem abaixo do limite. O tempo de exposição, e não só a concentração média, é o que define o risco, e por isso o monitoramento contínuo é necessário para detectar picos como esses.
+\subsection{Sal como contaminante}
+O próprio NaCl é um contaminante relevante. O cloreto é um dos parâmetros da Resolução CONAMA nº~357/2005~\cite{conama2005}, com limite de 250~mg/L de cloreto total para as águas doces das classes 1 a 3, que incluem as destinadas ao abastecimento. O sal chega aos rios por efluentes industriais e domésticos, por salmouras de processos industriais e pelo escoamento de áreas agrícolas, e um lançamento concentrado se comporta como os pulsos destes ensaios. Com a calibração da sonda A ($k = 0{,}31$~mg/L por \uScm) e a fração de cloreto no NaCl (60,7\,\% em massa), o maior pico registrado pelo sensor A em 09/11 (cerca de 1740~\uScm{} acima da linha de base, no ensaio 4) corresponde a pelo menos 0,54~g/L de NaCl, ou 330~mg/L de cloreto, acima do limite da resolução (o sensor saturou nesse pico, e a concentração real foi maior). Mesmo em um canal de laboratório, portanto, 16~g de sal produziram por alguns segundos uma concentração que, em um rio, desenquadraria a água. Logo depois, a dispersão e a diluição reduziram a concentração: o aumento acumulado da linha de base, de cerca de 64~\uScm{} por injeção, corresponde a cerca de 20~mg/L de NaCl, ou 12~mg/L de cloreto, bem abaixo do limite. O tempo de exposição, e não só a concentração média, é o que define o risco, e por isso o monitoramento contínuo é necessário para detectar picos como esses.
 
-\paragraph{Sensores de baixo custo no monitoramento}
+\subsection{Sensores de baixo custo no monitoramento}
 O ruído do protótipo, de cerca de 1~\uScm, equivale a cerca de 0,3~mg/L de NaCl. Na prática, variações de alguns \uScm, ou cerca de 1~mg/L de sal, podem ser detectadas, como mostraram as injeções de apenas 0,07~g em 26/10. Essa sensibilidade é suficiente para detectar lançamentos de efluentes e alterações bruscas na qualidade da água, que são a principal aplicação de redes de condutivímetros de baixo custo~\cite{camargo2023,visco2023}. Como o custo de cada ponto é baixo, é possível instalar vários sensores ao longo de um rio e acompanhar o deslocamento de uma mancha em tempo real, o que um único equipamento comercial não faz.
 
-Os ensaios também indicaram os cuidados necessários para que uma rede desse tipo seja confiável: a calibração individual de cada sonda, já que a sensibilidade variou cerca de 20\,\% entre as sondas A e E; um relógio comum a todos os pontos, já que o erro de data e hora do ensaio de 26/10 impediu o uso dos tempos absolutos; e a gravação local dos dados, como cópia de segurança das falhas de transmissão observadas em 09/11. Com esses cuidados, sensores como o desenvolvido neste trabalho podem complementar redes oficiais, como a da Agência Nacional de Águas~\cite{camargo2023}, em pontos críticos, como a montante de captações de água para abastecimento.
+Para que uma rede desse tipo seja confiável, os ensaios mostraram que é preciso calibrar cada sonda, usar um relógio comum a todos os pontos e gravar os dados localmente, como cópia das falhas de transmissão (Seção~\ref{sec:res_aplicacoes}). Com esses cuidados, sensores como o deste trabalho podem complementar redes oficiais, como a da Agência Nacional de Águas~\cite{camargo2023}, em pontos críticos, como a montante de captações de água para abastecimento.
 
 \section{Conclusões}
 \label{sec:conclusoes-expC}
-% [ATUALIZAR] Acrescentar as conclusões do experimento de 26/10, da comparação e da visão ambiental.
 
-Na calibração, a relação entre concentração e condutividade foi linear até cerca de 2200~\uScm, com $k = 0{,}31 \pm 0{,}03$~mg/L por \uScm{} ($R^2 = 0{,}974$) para a sonda~A. Esse valor é cerca de 37\,\% menor que o teórico para o NaCl (0,49~mg/L por \uScm): a sonda superestima a condutividade em até 65\,\%, e a constante da sonda~E, calibrada no mesmo dia, foi cerca de 19\,\% maior. No diagrama de Taylor, a calibração reduziu o RMSE das concentrações estimadas de 0,20 para 0,03~g/L em relação ao fator de 0,5 do fabricante. Cada sonda deve, portanto, ser calibrada com o próprio traçador antes do uso.
+O condutivímetro desenvolvido, com Wemos D1 mini, sensor TDS analógico e sensor de temperatura DS18B20, funcionou nas três etapas do trabalho e registrou com clareza todos os pulsos de sal, com ruído de cerca de 1~\uScm, menos de 1\,\% da leitura.
 
+Na calibração, a relação entre concentração e condutividade foi linear até cerca de 2200~\uScm, com $k = 0{,}31 \pm 0{,}03$~mg/L por \uScm{} para a sonda~A. A sonda leu até 65\,\% acima da condutividade teórica do NaCl, e a constante da sonda~E foi 19\,\% maior. No diagrama de Taylor, a calibração reduziu o RMSE das concentrações estimadas de 0,20 para 0,03~g/L em relação ao fator de 0,5 do fabricante. Cada sonda deve, portanto, ser calibrada com o próprio traçador antes do uso.
 
-O condutivímetro desenvolvido, com Wemos D1 mini, sensor TDS analógico e sensor de temperatura DS18B20, funcionou de forma contínua durante todo o experimento e registrou com clareza a passagem dos cinco pulsos de traçador. Com os sensores na mesma água, o ruído foi próximo de 1\,\% e o protótipo apresentou poucas falhas de leitura. As diferenças de até 9\,\% entre as sondas mostram que cada uma precisa de calibração própria; neste trabalho, elas foram contornadas com fatores de intercalibração e curvas normalizadas.
+No experimento de 26/10, o erro de data e hora do RTC impediu o uso dos tempos absolutos, mas a análise foi possível com diferenças de tempo, usando eventos simultâneos para sincronizar os sensores A e C e os próprios pulsos para realinhar o sensor E. A velocidade média foi de 4,1~cm/s e o coeficiente de dispersão, de 6 a 11~cm$^2$/s. As injeções diluídas deram vazões por diluição compatíveis com a continuidade, enquanto a solução concentrada registrou só 18 a 35\,\% do sal injetado.
 
-Entre as duas seções de medição, a velocidade média variou de 3,2 a 7,1~cm/s e o coeficiente de dispersão longitudinal, de 9,5 a 20,0~cm$^2$/s, com boa concordância entre o \emph{routing}, o método dos momentos e o \emph{Dispersion Analyzer}. A velocidade medida pelos sensores concordou com a calculada pela vazão do Venturi, e a expressão de Fischer reproduziu a ordem de grandeza da dispersão, o que confirma a coerência das medições.
+No experimento de 09/11, a velocidade média variou de 3,2 a 7,1~cm/s e o coeficiente de dispersão, de 9,5 a 20,0~cm$^2$/s, com boa concordância entre o \emph{routing}, o método dos momentos e o \emph{Dispersion Analyzer}. O coeficiente não apresentou relação com a inclinação, porque o escoamento era lento, profundo e controlado a jusante, longe do regime uniforme.
 
-O coeficiente de dispersão não apresentou relação com a inclinação do canal. O escoamento era lento, profundo e controlado a jusante, longe do regime uniforme para o qual a relação $D_L \propto S_0^{1/2}$ é válida; nessas condições, a velocidade e a dispersão dependeram mais da vazão e da lâmina d'água do que da declividade.
+Os dois experimentos deram valores da mesma ordem de grandeza, e, nos dois, a velocidade concordou com a vazão medida e a expressão de Fischer reproduziu a ordem de grandeza da dispersão. A principal limitação foi a mistura incompleta do traçador: a solução concentrada, mais densa que a água, escoou junto ao fundo, e sensores em alturas diferentes registraram partes diferentes da nuvem. As melhorias sugeridas estão na Seção~\ref{sec:res_aplicacoes}.
 
-A principal limitação foi a mistura incompleta do traçador: a solução de sal, mais densa que a água, escoou junto ao fundo, e sensores em alturas diferentes registraram partes diferentes da nuvem. Para ensaios futuros, recomenda-se usar uma solução mais diluída, medir em mais de uma altura por seção, afastar as seções do ponto de injeção, registrar o instante da injeção em segundos e calibrar cada sonda antes do ensaio. Com essas melhorias, o protótipo pode ser usado em ensaios de dispersão e de medição de vazão por diluição em canais e pequenos rios, e no monitoramento contínuo da qualidade da água.
+Do ponto de vista ambiental, os ensaios reproduziram em pequena escala a passagem de uma mancha de contaminante: 16~g de sal produziram por alguns segundos concentrações de cloreto acima do limite da Resolução CONAMA 357/2005, que depois se diluíram. Com calibração individual e relógio comum, sensores de baixo custo como este podem ser usados em redes de monitoramento contínuo da qualidade da água e em ensaios de dispersão e de vazão em pequenos rios.
 
 
 % ============================================================

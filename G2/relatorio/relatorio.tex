@@ -1162,13 +1162,64 @@ Os resultados poderiam ser aprimorados com as seguintes alterações:
 \section{Comparação entre os resultados}
 \label{sec:comparacao}
 
-\conf{A escrever: comparar a calibração e os experimentos de 26/10 e 09/11, por exemplo quanto ao desempenho do sensor em cada etapa (ruído, estabilidade, saturação), às faixas de condutividade medidas e aos valores de $U$ e $D_L$ obtidos nos dois experimentos.}
+A Tabela~\ref{tab:comparacao} reúne o desempenho do sensor A e os principais resultados nas três etapas do trabalho: a calibração em laboratório (05/10), o ensaio de 26/10, com gravação no cartão microSD, e o ensaio de 09/11, com envio por Wi-Fi.
+
+\begin{table}[H]
+  \centering
+  \caption{Comparação entre as três etapas: desempenho do sensor A e resultados no trecho A$\rightarrow$C. $U$ e $D_L$ obtidos por \emph{routing}.}
+  \label{tab:comparacao}
+  \ajustatabela{%
+  \begin{tabular}{llll}
+    \toprule
+    & Calibração (05/10) & Ensaio de 26/10 & Ensaio de 09/11 \\
+    \midrule
+    Registro & microSD & microSD & Wi-Fi \\
+    Intervalo entre leituras & 1,2~s & 1,25~s & 1~s \\
+    Faixa medida pelo sensor A (\uScm) & 184 a 2437 & 159 a 674 & cerca de 165 a 2826 \\
+    Ruído do sensor A (\uScm) & 3,0 (água sem sal) & 0,8 a 1,0 & 1,4 \\
+    Saturação & 0,8~g/L (2437~\uScm) & não ocorreu & ensaio 4 (2,30~V) \\
+    Falhas de registro & -- & data/hora errada, linhas corrompidas & lacunas de até 20~s \\
+    Lâmina d'água (cm) & -- & 19,5 & 12,0 a 23,5 \\
+    Injeções & -- & 0,07~g (2) e 11~g (1) & 16~g (5) \\
+    $U$ (cm/s) & -- & 4,0 a 4,2 & 3,2 a 7,1 \\
+    $D_L$ (cm$^2$/s) & -- & 6,4 a 11,0 & 9,5 a 20,0 \\
+    $D_L$ Fischer / $D_L$ medido & -- & 0,76 & 0,35 a 1,2 \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+\paragraph{Desempenho do sensor}
+O ruído do sensor A foi de cerca de 1~\uScm, menos de 1\,\% da leitura, nos dois ensaios no canal, com gravação no cartão ou com envio por Wi-Fi. Na calibração, o desvio-padrão das leituras foi maior (3,0~\uScm{} na água sem sal e até 40~\uScm{} nos degraus de 0,2 a 0,4~g/L), o que reflete a mistura ainda incompleta do sal no recipiente, e não o ruído eletrônico. A faixa de validade da calibração, até cerca de 2200~\uScm, cobriu todo o ensaio de 26/10 e todos os pulsos de 09/11, exceto o pico do ensaio 4, que saturou o sensor. A saturação aparece, portanto, nas duas etapas em que a condutividade passou de cerca de 2200~\uScm: no degrau de 0,8~g/L da calibração e no ensaio 4.
+
+Os dois modos de registro falharam de maneiras diferentes. Em 26/10, o cartão registrou todas as leituras, sem lacunas, mas a data e a hora do RTC estavam erradas, e os relógios de cada placa não tinham referência comum; foi preciso reconstruir a sincronização pelos próprios sinais (Seção~\ref{sec:res_exp2610}). Em 09/11, os horários vieram do servidor e eram comuns a todas as placas, mas a perda de pacotes no Wi-Fi gerou lacunas de até 20~s. Os dois problemas se complementam: gravar no cartão e enviar por Wi-Fi ao mesmo tempo, com o relógio acertado pela rede, teria evitado os dois.
+
+\paragraph{Velocidade e coeficiente de dispersão}
+Os valores de $U$ e $D_L$ dos dois ensaios são da mesma ordem de grandeza. O caso mais comparável é o ensaio 2 de 09/11, com lâmina de 21~cm, próxima dos 19,5~cm de 26/10: nele, $U = 3{,}9$~cm/s e $D_L = 9{,}5$~cm$^2$/s, contra $U = 4{,}1$~cm/s e $D_L = 8{,}6$~cm$^2$/s (média dos três pulsos) em 26/10. A vazão estimada pela continuidade em 26/10 (1,07~L/s) também é próxima da medida pelo Venturi em 09/11 (1,13 a 1,21~L/s). Em 26/10, os três pulsos deram velocidades quase iguais (4,0 a 4,2~cm/s), o que indica que a vazão foi constante; em 09/11, $U$ e $D_L$ variaram mais, porque a inclinação, a lâmina e a posição das sondas mudaram entre os ensaios. Nos dois casos, a expressão de Fischer, Eq.~\eqref{eq:fischer_dl}, reproduziu a ordem de grandeza de $D_L$.
+
+A distância entre o lançamento e a primeira seção foi diferente: 0,60~m em 26/10 e 0,91~m em 09/11. Como o coeficiente aparente tende a crescer enquanto o traçador ainda se mistura na seção (Seção~\ref{sec:res_jusante}), os valores um pouco menores de 26/10 são coerentes com seções mais próximas do lançamento.
+
+\paragraph{Mistura do traçador}
+Os dois ensaios mostram o mesmo efeito da densidade da solução injetada. Em 09/11 (128~kg/m$^3$), a área do pulso junto ao fundo (sensor B) foi de 2,4 a 6,1 vezes a área perto da superfície (sensor A). Em 26/10, a injeção de 122~kg/m$^3$ registrou apenas 18 a 35\,\% do sal esperado nas sondas próximas à superfície e a meia altura, enquanto as injeções de 0,8~g/L, com densidade praticamente igual à da água, resultaram em vazões por diluição compatíveis com a continuidade. A comparação indica que soluções diluídas misturam-se melhor na seção e dão resultados mais representativos com sondas pontuais, desde que o sinal fique bem acima do ruído: em 26/10, 0,07~g de sal já produziram picos de 10 a 30~\uScm, de 10 a 40 vezes o ruído.
+
+\paragraph{Interferência entre sondas}
+A interferência elétrica entre sondas apareceu nos dois ensaios: em 09/11, como uma queda na leitura de E durante a passagem do sal pelas sondas a montante; em 26/10, como uma queda na leitura de C durante a passagem do sal por A, e como um degrau simultâneo na linha de base de A e C às 16:40:18. É, portanto, uma característica do conjunto de sondas no mesmo meio, e não de um ensaio específico. Em 26/10, essa interferência teve um uso inesperado: como é instantânea, permitiu verificar a sincronização entre os relógios de A e C.
 
 % ============================================================
 \section{Visão ambiental}
 \label{sec:visao_ambiental}
 
-\conf{A escrever: relacionar os resultados com o problema ambiental apresentado na Introdução (lançamento acidental de poluentes em rios, tempo de chegada às captações e concentração máxima) e com o uso de sensores de baixo custo no monitoramento da qualidade da água.}
+Os ensaios no canal reproduzem, em pequena escala, a situação descrita na Introdução: uma massa de contaminante lançada de uma vez, que se desloca com o escoamento e se espalha enquanto passa por pontos de monitoramento a jusante. As três informações necessárias para a resposta a um acidente (o tempo de chegada, o tempo de passagem e a concentração máxima) foram obtidas diretamente das curvas registradas pelos sensores.
+
+\paragraph{Chegada, passagem e diluição da mancha}
+No pulso 3 de 26/10, o centroide da nuvem de sal passou pelo sensor A, a 0,60~m do lançamento, cerca de 15~s depois da injeção, e pelo sensor E, a 2,22~m, cerca de 55~s depois (tempo estimado com a velocidade entre A e C). Nesse percurso, o desvio-padrão temporal da nuvem passou de 5~s em A para 10~s em E: a mancha levou o dobro do tempo para passar, e o pico da curva normalizada pela área caiu cerca de 35\,\% (Figura~\ref{fig:pulsos2610}). Esse é o comportamento previsto pela Eq.~\eqref{eq:gauss}, em que o pico diminui com $1/\sqrt{t}$ e a duração cresce com $\sqrt{t}$. Em um rio, conhecer $U$ permite prever quando a mancha chega a uma captação, e $D_L$ permite prever por quanto tempo ela passa e qual a concentração máxima, de modo a decidir quando suspender e quando retomar a captação. Os ensaios também mostraram que esses valores só são representativos depois que o contaminante se mistura na seção: perto do lançamento, a mancha se divide em camadas, como ocorreu com a salmoura que afundou, e um único sensor pode registrar só uma parte dela.
+
+\paragraph{Sal como contaminante}
+O próprio NaCl é um contaminante relevante. O cloreto é um dos parâmetros da Resolução CONAMA nº~357/2005, com limite de 250~mg/L de cloreto total para as águas doces das classes 1 a 3, que incluem as destinadas ao abastecimento. O sal chega aos rios por efluentes industriais e domésticos, por salmouras de processos industriais e pelo escoamento de áreas agrícolas, e um lançamento concentrado se comporta como os pulsos destes ensaios. Com a calibração da sonda A ($k = 0{,}31$~mg/L por \uScm) e a fração de cloreto no NaCl (60,7\,\% em massa), o maior pico registrado pelo sensor A em 09/11 (cerca de 1740~\uScm{} acima da linha de base, no ensaio 4) corresponde a pelo menos 0,54~g/L de NaCl, ou 330~mg/L de cloreto, acima do limite da resolução (o sensor saturou nesse pico, e a concentração real foi maior). Mesmo em um canal de laboratório, portanto, 16~g de sal produziram por alguns segundos uma concentração que, em um rio, desenquadraria a água. Logo depois, a dispersão e a diluição reduziram a concentração: o aumento acumulado da linha de base, de cerca de 64~\uScm{} por injeção, corresponde a cerca de 20~mg/L de NaCl, ou 12~mg/L de cloreto, bem abaixo do limite. O tempo de exposição, e não só a concentração média, é o que define o risco, e por isso o monitoramento contínuo é necessário para detectar picos como esses.
+
+\paragraph{Sensores de baixo custo no monitoramento}
+O ruído do protótipo, de cerca de 1~\uScm, equivale a cerca de 0,3~mg/L de NaCl. Na prática, variações de alguns \uScm, ou cerca de 1~mg/L de sal, podem ser detectadas, como mostraram as injeções de apenas 0,07~g em 26/10. Essa sensibilidade é suficiente para detectar lançamentos de efluentes e alterações bruscas na qualidade da água, que são a principal aplicação de redes de condutivímetros de baixo custo~\cite{camargo2023,visco2023}. Como o custo de cada ponto é baixo, é possível instalar vários sensores ao longo de um rio e acompanhar o deslocamento de uma mancha em tempo real, o que um único equipamento comercial não faz.
+
+Os ensaios também indicaram os cuidados necessários para que uma rede desse tipo seja confiável: a calibração individual de cada sonda, já que a sensibilidade variou cerca de 20\,\% entre as sondas A e E; um relógio comum a todos os pontos, já que o erro de data e hora do ensaio de 26/10 impediu o uso dos tempos absolutos; e a gravação local dos dados, como cópia de segurança das falhas de transmissão observadas em 09/11. Com esses cuidados, sensores como o desenvolvido neste trabalho podem complementar redes oficiais, como a da Agência Nacional de Águas~\cite{camargo2023}, em pontos críticos, como a montante de captações de água para abastecimento.
 
 \section{Conclusões}
 \label{sec:conclusoes-expC}

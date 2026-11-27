@@ -415,9 +415,37 @@ Os valores de $U$ e $D_L$ apresentados neste relatório foram calculados a parti
 \subsection{Experimento de 26/10/2026}
 \label{sec:met_exp2610}
 
-% [ATUALIZAR] Sugestão: seguir as mesmas subdivisões do experimento de 09/11 (local de instalação, ensaios e processamento).
-% Se o processamento for o mesmo, basta remeter à Seção~\ref{sec:processamento}.
-\conf{A escrever: local de instalação e posição dos sensores, ensaios realizados e processamento dos dados do experimento de 26/10. Os arquivos de dados registram a data 28/10, mas o experimento foi realizado em 26/10; explicar isso no texto.}
+O primeiro ensaio no canal foi realizado em 26/10/2026, com três condutivímetros gravando os dados no cartão microSD (Seção~\ref{sec:algoritmo}): o sensor A (ESP-D68785, grupo Harrison), o sensor C (ESP-4EE77C, grupo Star) e o sensor E (ESP-C9C537, grupo Richards). As placas dos grupos McCartney e Bonham também estavam no canal, mas seus dados não foram utilizados neste relatório.
+
+\paragraph{Local de instalação e ensaios}
+O arranjo foi registrado no quadro do laboratório (Figura~\ref{fig:quadro2610}). O canal tinha largura $B = 0{,}135$~m e lâmina d'água $h = 19{,}5$~cm, e o sal foi lançado na posição $x_0 = 0$. Os sensores foram instalados em três seções: A a $x_1 = 0{,}60$~m, cerca de 2~cm abaixo da superfície; C a $x_2 = 1{,}14$~m, cerca de 4~cm abaixo da superfície; e E a $x_3 = 2{,}22$~m, a cerca de 9,5~cm de profundidade, perto da meia altura da lâmina. Foram feitas três injeções de 90~mL, anotadas às 16h43, 16h46 e 16h50. Nas duas primeiras foi usada a solução da condição inicial anotada no quadro, de 0,8~g/L; na terceira, 11~g de NaCl em 90~mL (122~g/L).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figuras/quadro_esquema_canal_2026-10-07.jpeg}
+  \caption{Esquema do ensaio de 26/10/2026 no quadro do laboratório: seções $x_1 = 0{,}60$~m (sensor A, ``Harrison''), $x_2 = 1{,}14$~m (sensor C, ``Star'') e $x_3 = 2{,}22$~m (sensor E, ``Richards''), lâmina $h = 19{,}5$~cm, largura $B = 0{,}135$~m e horários das injeções.}
+  \label{fig:quadro2610}
+\end{figure}
+
+\paragraph{Problema no registro de data e hora}
+Em cada leitura, o \emph{firmware} grava a data e a hora do RTC DS3231. Esse relógio só é acertado quando o próprio módulo indica perda de alimentação, e nesse caso recebe a data e a hora da compilação do programa. Nos arquivos de 26/10, a data e a hora não correspondem ao dia do ensaio. Os arquivos dos sensores A e C acumulam, no mesmo \texttt{dados.txt}, o teste da Aula~07 (28/09), a calibração (05/10, até 16:20) e o ensaio no canal, e todo o trecho do ensaio está registrado com a data 05/10/2026, entre 16:24 e 16:54. O arquivo do sensor E contém apenas o ensaio, com horários de 14:23 a 14:35, cerca de 2~h~19~min antes do horário real. Por esse motivo, o ensaio foi repetido em 09/11 com transmissão por Wi-Fi (Seção~\ref{sec:met_exp0911}).
+Os horários de A e C, no entanto, coincidem com os anotados no quadro com diferença menor que 1~min; apenas a data está errada nesses dois arquivos.
+
+Como os horários absolutos não são confiáveis, a análise usou apenas diferenças de tempo, de duas formas:
+\begin{itemize}
+  \item \textbf{Sensores A e C.} Os dois registros mostram eventos que ocorrem no mesmo segundo: uma queda da linha de base às 16:40:18 (de cerca de 188 para 161~\uScm\ em A e de 160 para 141~\uScm\ em C) e, em cada pulso, uma pequena queda da leitura de C exatamente quando o sal chega à seção de A, interpretada como interferência elétrica entre as sondas (também observada em 09/11, Seção~\ref{sec:res_limitacoes}). Como esses efeitos são instantâneos, a coincidência indica que os relógios de A e C diferem em no máximo 1 a 2~s, e as diferenças de tempo entre A e C foram usadas diretamente.
+  \item \textbf{Sensor E.} O relógio de E foi realinhado pelos próprios pulsos. A diferença entre os centroides de E e de A, cada um no seu relógio, foi praticamente a mesma nos três pulsos, o que mostra que o relógio de E tem apenas um deslocamento constante. Essa diferença, porém, soma o deslocamento do relógio e o tempo de viagem de A até E, que não podem ser separados. Para colocar E no relógio de A, adotou-se o tempo de viagem $(x_3 - x_1)/U_{AC}$, com a velocidade medida entre A e C, isto é, admitindo velocidade constante entre A e E.
+\end{itemize}
+
+\paragraph{Processamento}
+Os arquivos foram lidos diretamente do cartão, descartando as linhas corrompidas (data ilegível), as linhas de cabeçalho gravadas a cada reinício da placa e as leituras com o DS18B20 desconectado ($-127$~°C). Foi analisado o trecho a partir de 16:33, quando as sondas A e C já estavam no canal. O intervalo médio entre leituras foi de 1,25~s em A e C e de 1,56~s em E. As séries foram reamostradas em grade de 1~s e os pulsos foram isolados e caracterizados como no ensaio de 09/11 (Seção~\ref{sec:processamento}), com duas adaptações: a média móvel foi de 3~s e o fim do pulso foi definido pelo sinal 4~s abaixo de 5\,\% do pico, porque os pulsos foram mais curtos. A linha de base foi a mediana do minuto anterior ao início de cada pulso.
+
+No trecho A$\rightarrow$C ($\Delta x = 0{,}54$~m), $U$ e $D_L$ foram obtidos pelos momentos, Eq.~\eqref{eq:dl_momentos}, e pelo \emph{routing}, Eq.~\eqref{eq:routing}, com a mesma análise de sensibilidade de 09/11 (limiar de 2, 5 e 10\,\% e média móvel de 1, 3 e 5~s). No trecho C$\rightarrow$E ($\Delta x = 1{,}08$~m), a velocidade foi fixada no valor médio de A$\rightarrow$C e apenas $D_L$ foi estimado: pelos momentos, na forma
+\begin{equation}
+  D_L = \frac{U^{3}\,\bigl(\sigma_{t,E}^{2} - \sigma_{t,C}^{2}\bigr)}{2\,\Delta x},
+  \label{eq:dl_var_2610}
+\end{equation}
+que depende apenas da diferença de variâncias e, portanto, não depende do relógio de E, e pelo \emph{routing}, ajustando $D_L$ e um pequeno atraso residual que absorve o erro do realinhamento. O instante de cada injeção foi estimado pela Eq.~\eqref{eq:t0}. A vazão foi estimada pela continuidade, $Q = U B h$, e de forma independente pela diluição, Eq.~\eqref{eq:diluicao}, com a calibração de cada sonda ($k = 0{,}31$, 0,308 e 0,37~mg\,L$^{-1}$ por \uScm\ para A, C e E) e as massas injetadas. O processamento está no \emph{notebook} \texttt{experimento\_\allowbreak 2610.ipynb}.
 
 %------------------------------------------------------------------------------
 \subsection{Experimento de 09/11/2026: variação da inclinação do canal}
@@ -701,7 +729,104 @@ Esse resultado tem duas consequências para os ensaios de dispersão. Primeiro, 
 \subsection{Experimento de 26/10/2026}
 \label{sec:res_exp2610}
 
-\conf{A escrever: resultados e discussão do experimento de 26/10.}
+\subsubsection{Registro e sincronização dos sensores}
+
+A Figura~\ref{fig:serie2610} mostra o registro dos três sensores, com o sensor E já no relógio de A. A temperatura da água ficou estável, entre 19,7 e 19,9~°C, e a linha de base foi de cerca de 160~\uScm\ em A, 141~\uScm\ em C e 154~\uScm\ em E, com desvio-padrão de 0,2 a 1,1~\uScm. Os três pulsos aparecem nos três sensores, na mesma ordem e com os mesmos intervalos: 183 e 258~s entre os centroides em A e 185 e 258~s em E.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figuras/F12_exp2610_series.pdf}
+  \caption{Ensaio de 26/10/2026. (a) Condutividade nos sensores A, C e E, com E deslocado para o relógio de A; linhas tracejadas: horários anotados das injeções; linhas pontilhadas: instantes estimados pela Eq.~\eqref{eq:t0}. (b) Detalhe dos pulsos 1 e 2, com a queda da leitura de C durante a passagem do sal pela seção de A.}
+  \label{fig:serie2610}
+\end{figure}
+
+A queda da linha de base às 16:40:18 e as quedas de C durante a passagem do sal por A ocorreram com diferença de 0 a 2~s nos dois registros, o que confirma que os relógios de A e C estavam sincronizados entre si. Os primeiros sinais de sal em A ocorreram às 16:42:33, 16:45:35 e 16:49:48 no relógio de A, 12 a 27~s antes dos horários anotados. Pela extrapolação dos centroides, as injeções ocorreram às 16:42:21, 16:45:25 e 16:49:43 nesse relógio, 17 a 39~s antes dos horários do quadro, o que é compatível com a anotação arredondada para o minuto e com um pequeno erro do relógio. No sensor E, a diferença entre os centroides de E e de A nos dois relógios foi de $-8299$, $-8298$ e $-8298$~s (desvio-padrão de 0,9~s). Com o tempo de viagem de 40~s entre A e E, o relógio de E estava 2~h~18~min~58~s atrasado em relação ao de A.
+
+\subsubsection{Pulsos e momentos}
+
+A Tabela~\ref{tab:momentos2610} e a Figura~\ref{fig:pulsos2610} apresentam os pulsos. Nas duas primeiras injeções, de pouca massa, o pico foi de apenas 10 a 30~\uScm, cerca de 10 a 40 vezes o desvio-padrão da linha de base; ainda assim, os pulsos foram bem definidos nos três sensores. Na terceira, o pico chegou a 420 a 450~\uScm\ acima da linha de base, e as leituras individuais atingiram 670~\uScm\ em A e em C, dentro da faixa calibrada. O desvio-padrão temporal $\sigma_t$ cresceu de A para E nos pulsos 1 e 2 (de 2 a 4~s em A para 7 a 8~s em E). No pulso 3, as curvas de A e de C tiveram vários picos, sinal de que a solução concentrada ainda não estava misturada, e $\sigma_t$ foi praticamente igual em C e em E (10,5~s).
+
+\begin{table}[H]
+  \centering
+  \caption{Ensaio de 26/10/2026: linha de base $\kappa_0$, pico do excesso de condutividade $\Delta\kappa_{\max}$, área $M_0$ e desvio-padrão temporal $\sigma_t$ de cada pulso.}
+  \label{tab:momentos2610}
+  \ajustatabela{%
+  \begin{tabular}{cccccc}
+    \toprule
+    Pulso & Sensor & $\kappa_0$ (\uScm) & $\Delta\kappa_{\max}$ (\uScm) & $M_0$ (\uScm\,s) & $\sigma_t$ (s) \\
+    \midrule
+    1 & A & 160,6 & 30,3  & 177  & 2,3 \\
+      & C & 141,3 & 10,0  & 82   & 4,5 \\
+      & E & 153,3 & 11,0  & 209  & 7,8 \\
+    2 & A & 159,8 & 17,6  & 153  & 3,9 \\
+      & C & 141,8 & 9,7   & 116  & 5,1 \\
+      & E & 154,8 & 9,5   & 164  & 7,4 \\
+    3 & A & 159,0 & 445,4 & 6102 & 5,3 \\
+      & C & 141,7 & 423,8 & 5928 & 10,5 \\
+      & E & 155,1 & 454,4 & 9621 & 10,5 \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figuras/F13_exp2610_pulsos.pdf}
+  \caption{Pulsos do ensaio de 26/10/2026 nos sensores A, C e E, normalizados pela área, em função do tempo desde a injeção estimada.}
+  \label{fig:pulsos2610}
+\end{figure}
+
+\subsubsection{Velocidade média e coeficiente de dispersão}
+
+A Tabela~\ref{tab:dispersao2610} apresenta os resultados. No trecho A$\rightarrow$C, o \emph{routing} forneceu velocidades de 4,0 a 4,2~cm/s nos três pulsos (média de 4,1~cm/s) e coeficientes de dispersão de 6,4 a 11,0~cm$^2$/s (média de 8,6~cm$^2$/s), com $R^2$ de 0,92 e 0,98 nos pulsos 1 e 2 (Figura~\ref{fig:routing2610}). O pulso 3 teve o pior ajuste ($R^2 = 0{,}82$), pelos picos múltiplos das duas curvas. Pelos momentos, os pulsos 1 e 2 deram resultados próximos aos do \emph{routing}, mas o pulso 3 resultou em $U = 3{,}1$~cm/s e $D_L = 22{,}8$~cm$^2$/s, porque o centroide e a variância de C foram deslocados pela cauda longa e pelos picos secundários. Como em 09/11, o \emph{routing} foi adotado como resultado principal.
+
+\begin{table}[H]
+  \centering
+  \caption{Ensaio de 26/10/2026: velocidade média $U$ (cm/s) e coeficiente de dispersão $D_L$ (cm$^2$/s). No trecho C$\rightarrow$E, $U$ foi fixado em 4,1~cm/s. A faixa de $D_L$ corresponde à análise de sensibilidade.}
+  \label{tab:dispersao2610}
+  \setlength{\tabcolsep}{5pt}
+  \ajustatabela{%
+  \begin{tabular}{ccccccccccc}
+    \toprule
+    & \multicolumn{7}{c}{A$\rightarrow$C} & \multicolumn{3}{c}{C$\rightarrow$E} \\
+    \cmidrule(lr){2-8}\cmidrule(lr){9-11}
+    & \multicolumn{2}{c}{Momentos} & \multicolumn{4}{c}{\emph{Routing}} & & \multicolumn{2}{c}{$D_L$} & \\
+    \cmidrule(lr){2-3}\cmidrule(lr){4-7}\cmidrule(lr){9-10}
+    Pulso & $U$ & $D_L$ & $U$ & $D_L$ & Faixa de $D_L$ & $R^2$ & & Momentos & \emph{Routing} & $R^2$ \\
+    \midrule
+    1 & 4,0 & 8,8  & 4,2 & 8,3  & 3,2--8,3  & 0,92 & & 12,5  & 13,1 & 0,95 \\
+    2 & 3,9 & 5,8  & 4,0 & 6,4  & 4,8--8,6  & 0,98 & & 9,2   & 8,5  & 0,97 \\
+    3 & 3,1 & 22,8 & 4,0 & 11,0 & 6,7--12,6 & 0,82 & & $-0{,}4$ & 8,9 & 0,97 \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{figuras/F14_exp2610_routing_A_C.pdf}
+  \caption{Ajuste por \emph{routing} no trecho A$\rightarrow$C no ensaio de 26/10/2026: curva medida em A, curva medida em C e curva prevista em C. As curvas estão normalizadas pela área.}
+  \label{fig:routing2610}
+\end{figure}
+
+No trecho C$\rightarrow$E, com $U$ fixo, o \emph{routing} resultou em $D_L$ de 8,5 a 13,1~cm$^2$/s ($R^2 \geq 0{,}95$), e os momentos, em 12,5 e 9,2~cm$^2$/s nos pulsos 1 e 2. No pulso 3, a variância praticamente não cresceu de C para E, e a Eq.~\eqref{eq:dl_var_2610} resultou em um valor negativo, sem significado físico. O sensor E estava a meia profundidade, e C, perto da superfície; como em 09/11 (Seção~\ref{sec:res_jusante}), os dois sensores podem ter registrado partes diferentes da nuvem de sal, sobretudo no pulso de solução concentrada. O atraso residual ajustado foi de 1 a 3~s, da ordem do intervalo entre leituras, o que indica que o realinhamento de E foi consistente com a velocidade adotada. Esses valores, porém, dependem da hipótese de velocidade constante entre A e E: um erro de 10\,\% em $U$ altera $D_L$ em cerca de 30\,\%, pelo fator $U^3$.
+
+Com $U = 4{,}1$~cm/s, a vazão pela continuidade foi $Q = U B h = 1{,}07$~L/s, próxima da medida pelo Venturi em 09/11 (1,13 a 1,21~L/s). O raio hidráulico foi $R_h = 5{,}0$~cm e o número de Reynolds $Re = U R_h/\nu \approx 2{,}0\times10^{3}$, cerca de quatro vezes o valor estimado no quadro antes do ensaio ($\approx 500$). Pela Eq.~\eqref{eq:fischer_dl}, com $u_* = 0{,}26$~cm/s, o coeficiente de dispersão estimado é de 6,5~cm$^2$/s, próximo da média medida no trecho A$\rightarrow$C (8,6~cm$^2$/s). Como as sondas A e C estavam perto da superfície, onde o escoamento é mais rápido que a média da seção, a velocidade medida tende a superestimar a velocidade média.
+
+\paragraph{Balanço de massa}
+Com as massas injetadas (0,072~g nas injeções 1 e 2 e 11~g na 3), a vazão por diluição, Eq.~\eqref{eq:diluicao}, foi de 0,9 a 1,5~L/s nos sensores A e E nas duas primeiras injeções, compatível com a vazão pela continuidade. O sensor C registrou áreas menores e resultou em 2,0 a 2,8~L/s. Na terceira injeção, os três sensores resultaram em 3,1 a 6,0~L/s, ou seja, registraram só 18 a 35\,\% do sal esperado: a razão entre as áreas da injeção 3 e das injeções 1 e 2 foi de 37 a 60, enquanto a razão entre as massas seria de 153. A explicação mais provável é a mesma de 09/11: a solução de 122~g/L é mais densa que a água e afundou, de modo que boa parte do sal passou abaixo das sondas, que estavam próximas à superfície ou a meia altura. Na solução de 0,8~g/L, praticamente com a mesma densidade da água, isso não ocorre.
+
+\paragraph{Outras observações}
+Cerca de 1,5~min depois do pulso 3, os três sensores registraram uma segunda elevação, mais larga e de menor amplitude (40 a 55~\uScm), seguida de um patamar 50 a 75~\uScm\ acima da linha de base inicial. O atraso dessa segunda elevação em relação ao pulso principal aumentou de A (93~s) para E (115~s), ou seja, ela se deslocou mais devagar que o pulso principal. Pode corresponder a sal retido em zonas de baixa velocidade perto do ponto de injeção ou junto ao fundo, ou ao início do retorno pela recirculação; ela não foi incluída nos momentos. A queda simultânea da linha de base de A e C às 16:40:18, sem passagem de sal, e as quedas de C durante a passagem do sal por A reforçam a interferência elétrica entre sondas no mesmo meio, já discutida para o ensaio de 09/11.
+
+\subsubsection{Limitações do ensaio de 26/10}
+\begin{itemize}
+  \item O horário absoluto não é confiável em nenhum dos três arquivos; os resultados usam só diferenças de tempo. Os métodos de um único ponto (tempo desde a injeção até cada sensor) não podem ser aplicados com segurança.
+  \item O tempo de viagem até E não pôde ser medido: ele foi admitido a partir da velocidade de A$\rightarrow$C. Por isso, os resultados de C$\rightarrow$E dependem dessa hipótese, e não foi possível verificar se a velocidade variou ao longo do canal, como ocorreu nos ensaios 3 e 5 de 09/11.
+  \item Apenas uma sonda por seção, cada uma em uma profundidade diferente (A e C perto da superfície e E a meia altura), e o primeiro trecho, de 0,54~m, foi percorrido em 13 a 17~s, com pulsos de 2 a 5~s de desvio-padrão descritos por poucas leituras (uma a cada 1,25~s).
+  \item A injeção concentrada (122~g/L) não estava misturada nas seções de medição e parte do sal provavelmente escoou junto ao fundo; as injeções diluídas (0,8~g/L) tiveram sinal pequeno, de 10 a 30~\uScm.
+  \item As posições, a lâmina d'água e as concentrações foram tiradas da foto do quadro; a vazão não foi medida no dia.
+\end{itemize}
+
+Apesar dessas limitações, o ensaio de 26/10 forneceu valores de $U$ (4,1~cm/s) e $D_L$ (6 a 11~cm$^2$/s no trecho A$\rightarrow$C) da mesma ordem dos obtidos em 09/11 (3,2 a 7,1~cm/s e 9,5 a 20~cm$^2$/s), com outro modo de registro (cartão microSD) e outro arranjo de sondas. Ele também mostrou a importância de sincronizar os relógios dos sensores e de registrar o horário das injeções, o que motivou a repetição do ensaio com transmissão por Wi-Fi.
 
 %------------------------------------------------------------------------------
 \subsection{Experimento de 09/11/2026: variação da inclinação do canal}

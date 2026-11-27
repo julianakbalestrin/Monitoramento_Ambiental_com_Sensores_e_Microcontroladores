@@ -10,12 +10,13 @@ Entrega: 28/11/2026 (relatório em PDF, apresentação e todos os códigos, num 
 |---|---|
 | `firmware/datalogger_sd/` | datalogger com gravação no microSD, copiado do roteiro da Aula 07 (`platformio.ini` + `src/main.cpp`) |
 | `dados/brutos/sensor_data_canal_2026-11-09.csv` | ensaio no canal (09/11/2026): 5 placas, enviado por Wi-Fi |
-| `dados/brutos/aula07_sensorA_2026-09-28.txt`, `aula07_sensorC_2026-09-28.txt` | primeiro experimento da Aula 07 (28/09/2026), cartão microSD |
-| `dados/brutos/aula07_sensorE_2026-10-05.txt` | registro do sensor E em 05/10/2026 |
+| `dados/brutos/aula07_sensorA_2026-09-28.txt`, `aula07_sensorC_2026-09-28.txt` | cartão microSD dos sensores A e C: teste da Aula 07 (28/09), calibração (05/10) e ensaio no canal de 26/10/2026 (gravado com a data errada, 05/10, entre 16:24 e 16:54) |
+| `dados/brutos/aula07_sensorE_2026-10-05.txt` | cartão microSD do sensor E no ensaio de 26/10/2026 (relógio cerca de 2 h 19 min atrasado) |
 | `dados/calibracao/calibracao.txt` | calibração da sonda A em concentração (05/10/2026) |
 | `dados/coeficiente_dispersao_sal.xlsx` | planilha dos experimentos 1 a 5 |
 | `notebooks/processamento_dispersao.ipynb` | processamento principal: calibração, momentos, dispersão, figuras e tabelas |
 | `notebooks/validacao_independente.ipynb` | validação independente da propagação A → E |
+| `notebooks/experimento_2610.ipynb` | ensaio de 26/10/2026 (sensores A, C e E): sincronização dos relógios, momentos, U e D_L, figuras F12 a F14 |
 | `figuras/foto_prototipo.jpg` | foto do protótipo |
 | `figuras/quadro_esquema_canal_2026-10-07.jpeg` | esquema do canal e das posições das sondas, no quadro |
 | `relatorio/relatorio.tex` | fonte LaTeX do relatório (em andamento) |
@@ -29,5 +30,5 @@ Abra os notebooks no Google Colab e execute tudo. Eles baixam `sensor_data.csv` 
 ## Pendências
 
 - Firmware com envio por Wi-Fi/MQTT usado no ensaio de 09/11 (o relatório cita essa versão).
-- Figuras referenciadas pelo `relatorio.tex` (`figuras/F*.pdf`, `esquema_ligacoes.pdf`, `esquema_canal.png`, `fundo`): gerar com os notebooks e copiar para `figuras/`.
+- Figuras referenciadas pelo `relatorio.tex` (`figuras/F*.pdf` do ensaio de 09/11; as F12 a F14, de 26/10, já estão na pasta; `esquema_ligacoes.pdf`, `esquema_canal.png`, `fundo`): gerar com os notebooks e copiar para `figuras/`.
 - Arquivo da apresentação.

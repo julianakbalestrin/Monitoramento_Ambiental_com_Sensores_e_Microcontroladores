@@ -16,7 +16,7 @@ Entrega: 28/11/2026 (relatório em PDF, apresentação e todos os códigos, num 
 | `dados/coeficiente_dispersao_sal.xlsx` | planilha dos experimentos 1 a 5 |
 | `notebooks/processamento_dispersao.ipynb` | processamento principal: calibração, momentos, dispersão, figuras e tabelas |
 | `notebooks/validacao_independente.ipynb` | validação independente da propagação A → E |
-| `notebooks/experimento_2610.ipynb` | ensaio de 26/10/2026 (sensores A, C e E): sincronização dos relógios, momentos, U e D_L, figuras F12 a F14 |
+| `notebooks/experimento_2610.ipynb` | ensaio de 26/10/2026 (sensores A, C e E): sincronização dos relógios, momentos, U e D_L, figuras F12 a F14; baixa os três arquivos do Drive |
 | `figuras/foto_prototipo.jpg` | foto do protótipo |
 | `figuras/quadro_esquema_canal_2026-10-07.jpeg` | esquema do canal e das posições das sondas, no quadro |
 | `relatorio/relatorio.tex` | fonte LaTeX do relatório (em andamento) |
